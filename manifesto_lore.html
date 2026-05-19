@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANIFEST | ARCHIVE 74</title>
+    <meta name="description" content="Manifest Evreni'nin (The Verse) derin analizi: Gizli semboller, üye profilleri, kehanetler ve Manifesto Yemini. Erişim Seviyesi: 5">
+    
+    <link rel="icon" type="image/png" href="pictures/favicon.png"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;700&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. CORE SYSTEM & VARIABLES
+           ========================================= */
+        :root {
+            --bg-deep: #030303;
+            --bg-panel: rgba(15, 15, 15, 0.8);
+            
+            --gold-dim: #8a6d3b;
+            --gold-bright: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            
+            --text-main: #e6e6e6;
+            --text-muted: #888;
+            
+            --font-header: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-script: 'Cormorant Garamond', serif;
+
+            --glass: blur(15px) saturate(150%);
+            --border: 1px solid rgba(255,255,255,0.08);
+            
+            --transition-slow: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        ::selection { background: var(--gold-dim); color: white; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Noise Texture Overlay */
+        body::after {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ0cmFuc3BhcmVudCIvPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZSkiIG9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=');
+            opacity: 0.4; pointer-events: none; z-index: 9000;
+        }
+
+        /* Ambient Glow */
+        .ambient-light {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80vw; height: 80vh;
+            background: radial-gradient(circle, rgba(138, 109, 59, 0.05) 0%, transparent 70%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* =========================================
+           2. LOADER (DECRYPTION SCREEN)
+           ========================================= */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1s ease;
+        }
+        .loader-text {
+            font-family: var(--font-header); color: var(--gold-bright);
+            font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        .loader-status {
+            font-family: monospace; color: #444; font-size: 0.9rem;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* =========================================
+           3. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 5000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 5%; border-bottom: 1px solid rgba(255,255,255,0.03);
+            background: rgba(3, 3, 3, 0.8); backdrop-filter: var(--glass);
+            transition: 0.4s;
+        }
+        
+        .brand {
+            font-family: var(--font-header); font-size: 1.4rem; color: white; letter-spacing: 3px; font-weight: 700;
+        }
+        .brand span { color: var(--gold-bright); }
+
+        .nav-menu { display: flex; gap: 40px; list-style: none; }
+        .nav-link {
+            text-decoration: none; color: #aaa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            position: relative; transition: 0.3s;
+        }
+        .nav-link::before {
+            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
+            background: var(--gold-bright); transition: 0.4s ease;
+        }
+        .nav-link:hover { color: white; }
+        .nav-link:hover::before { width: 100%; }
+
+        /* =========================================
+           4. HERO SECTION (Cinematic)
+           ========================================= */
+        header.hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 20px; position: relative;
+        }
+
+        .hero-badge {
+            border: 1px solid var(--gold-bright); padding: 8px 20px;
+            font-size: 0.7rem; letter-spacing: 4px; color: var(--gold-bright);
+            margin-bottom: 30px; opacity: 0; animation: fadeUp 1s 1s forwards;
+        }
+
+        h1 {
+            font-family: var(--font-header); font-size: clamp(3rem, 8vw, 7rem); line-height: 1;
+            color: white; margin-bottom: 20px; text-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
+            opacity: 0; animation: fadeUp 1s 1.2s forwards;
+        }
+        h1 span { display: block; font-size: 0.3em; letter-spacing: 15px; color: #555; margin-top: 10px; font-weight: 400; font-family: var(--font-body); }
+
+        .hero-desc {
+            font-family: var(--font-script); font-size: 1.5rem; color: #999; max-width: 600px; font-style: italic;
+            opacity: 0; animation: fadeUp 1s 1.4s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 80px; background: linear-gradient(to bottom, var(--gold-bright), transparent);
+            opacity: 0.5;
+        }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(20px); } }
+
+        /* =========================================
+           5. MAIN LAYOUT
+           ========================================= */
+        .container { max-width: 1200px; margin: 0 auto; padding: 100px 5%; position: relative; }
+
+        .section-title {
+            font-family: var(--font-header); font-size: 2.5rem; color: white; text-align: center; margin-bottom: 80px;
+            position: relative; display: inline-block; left: 50%; transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '✦'; display: block; font-size: 1rem; color: var(--gold-dim); margin-top: 10px;
+        }
+
+        /* --- CHAPTER I: THE ORIGIN --- */
+        .lore-block {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 150px;
+        }
+        .lore-text { font-size: 1rem; color: #ccc; text-align: justify; }
+        .lore-text::first-letter {
+            float: left; font-family: var(--font-header); font-size: 4rem; line-height: 0.8; padding-right: 15px; color: var(--gold-bright);
+        }
+        .lore-visual {
+            height: 400px; border: 1px solid var(--border); position: relative;
+            background: linear-gradient(45deg, #0a0a0a, #111);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lore-visual i { font-size: 5rem; color: rgba(255,255,255,0.05); }
+
+        /* --- CHAPTER II: THE ARCHETYPES (Cards) --- */
+        .members-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 150px;
+        }
+
+        .member-card {
+            background: var(--bg-panel); border: var(--border); padding: 40px; position: relative;
+            transition: var(--transition-slow); overflow: hidden;
+        }
+        .member-card:hover { transform: translateY(-10px); border-color: var(--gold-dim); box-shadow: 0 20px 50px -20px rgba(0,0,0,0.8); }
+
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .card-role { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-bright); }
+        .card-icon { font-size: 1.5rem; color: #333; transition: 0.5s; }
+        .member-card:hover .card-icon { color: white; text-shadow: 0 0 15px var(--gold-bright); }
+
+        .card-name { font-family: var(--font-header); font-size: 2rem; color: white; margin-bottom: 15px; }
+        .card-stats { list-style: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .card-stats li { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 10px; color: #888; }
+        .card-stats li span { color: #eee; }
+
+        /* --- CHAPTER III: TIMELINE --- */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto 150px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: rgba(255,255,255,0.1);
+        }
+        
+        .timeline-item { margin-bottom: 60px; position: relative; width: 50%; }
+        .timeline-item:nth-child(odd) { left: 0; padding-right: 40px; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; padding-left: 40px; }
+        
+        .tl-date { font-family: var(--font-header); color: var(--gold-bright); font-size: 1.2rem; margin-bottom: 10px; display: block; }
+        .tl-content h3 { color: white; font-size: 1rem; margin-bottom: 10px; letter-spacing: 1px; }
+        .tl-content p { font-size: 0.9rem; color: #888; }
+        
+        .tl-dot {
+            position: absolute; top: 5px; width: 10px; height: 10px; background: var(--bg-deep);
+            border: 1px solid var(--gold-bright); border-radius: 50%;
+        }
+        .timeline-item:nth-child(odd) .tl-dot { right: -5px; }
+        .timeline-item:nth-child(even) .tl-dot { left: -5px; }
+
+        /* --- CHAPTER IV: SYMBOLISM --- */
+        .symbol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); margin-bottom: 150px; }
+        .symbol-box {
+            background: var(--bg-deep); padding: 40px; text-align: center;
+            transition: 0.3s; cursor: crosshair;
+        }
+        .symbol-box:hover { background: #0a0a0a; }
+        .sym-icon { font-size: 2rem; color: #444; margin-bottom: 20px; }
+        .symbol-box:hover .sym-icon { color: var(--gold-bright); }
+        .sym-title { display: block; color: white; font-family: var(--font-header); margin-bottom: 5px; }
+        .sym-desc { font-size: 0.8rem; color: #666; }
+
+        /* --- CHAPTER V: THE OATH --- */
+        .oath-section {
+            text-align: center; padding: 100px 0; background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.03), transparent);
+            border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .oath-text {
+            font-family: var(--font-header); font-size: clamp(1.5rem, 4vw, 2.5rem); color: white; line-height: 1.6; margin-bottom: 40px;
+        }
+        .oath-sign {
+            font-family: var(--font-script); font-size: 1.2rem; color: var(--gold-dim); letter-spacing: 2px;
+        }
+
+        /* =========================================
+           6. FOOTER
+           ========================================= */
+        footer {
+            padding: 80px 5%; text-align: center; font-size: 0.8rem; color: #444;
+            background: #010101;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
+        .footer-links a { color: #666; transition: 0.3s; }
+        .footer-links a:hover { color: white; }
+
+        /* Reveal Animation Class */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lore-block { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 0; text-align: left; }
+            .timeline-item:nth-child(odd) { left: 0; text-align: left; }
+            .timeline-item:nth-child(even) { left: 0; }
+            .timeline-item:nth-child(odd) .tl-dot, .timeline-item:nth-child(even) .tl-dot { left: 15px; }
+            .symbol-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; } /* Burger menu implementation omitted for brevity */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-light"></div>
+
+    <div id="loader">
+        <div class="loader-text">DECRYPTING ARCHIVES...</div>
+        <div class="loader-status">ACCESS GRANTED: LEVEL 5</div>
+    </div>
+
+    <nav>
+        <div class="brand">MANI<span>I</span>FEST</div>
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link">Genesis</a></li>
+            <li><a href="#" class="nav-link">Archetypes</a></li>
+            <li><a href="#" class="nav-link">Timeline</a></li>
+            <li><a href="#" class="nav-link">The Oath</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-badge">CONFIDENTIAL FILE #74</div>
+        <h1>MANIFEST <br><span>THE UNTOLD CHRONICLES</span></h1>
+        <p class="hero-desc">"Yıldızlar hizalandığında ve sessizlik bozulduğunda, sadece gerçekler kalır. Burası, görünenin ardındaki gölge."</p>
+        <div class="scroll-indicator"></div>
+    </header>
+
+    <div class="container">
+
+        <h2 class="section-title reveal">I. GENESIS</h2>
+        <div class="lore-block reveal">
+            <div class="lore-text">
+                <p>Başlangıçta sadece kaos vardı. Müzik endüstrisinin yapay ışıkları altında kaybolmuş ruhlar, bir işaret bekliyordu. "Manifest Protokolü" işte o an devreye girdi. Amacı bir müzik grubu kurmak değil, bir "Düşünce Sistemi" inşa etmekti.</p>
+                <br>
+                <p>Latince "Manifestus" (Açık, Görünür) kelimesinden türeyen bu hareket, 6 ay süren ve dünyadan tamamen izole edilmiş "The Camp" eğitiminde şekillendi. 100 aday. 180 Gün. Sadece 6 kişi hayatta kaldı. Onlar şarkıcı değil, onlar birer elçi.</p>
+            </div>
+            <div class="lore-visual">
+                <i class="fas fa-dna"></i>
+            </div>
+        </div>
+
+        <h2 class="section-title reveal">II. THE ARCHETYPES</h2>
+        <div class="members-grid">
+            
+            <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE LEADER</span>
+                    <i class="fas fa-fire card-icon" style="color:#ff2a2a"></i>
+                </div>
+                <h3 class="card-name">Mina</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Ateş</span></li>
+                    <li>Renk <span>Kızıl (Crimson)</span></li>
+                    <li>Sembol <span>Adalet Terazisi</span></li>
+                    <li>Zayıflık <span>Aşırı Merhamet</span></li>
+                </ul>
+            </div>
+
+            <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE SIREN</span>
+                    <i class="fas fa-heart card-icon" style="color:#ff69b4"></i>
+                </div>
+                <h3 class="card-name">Lidya</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Aether (Ruh)</span></li>
+                    <li>Renk <span>Pembe Kuvars</span></li>
+                    <li>Sembol <span>Afrodit Aynası</span></li>
+                    <li>Zayıflık <span>Kibir</span></li>
+                </ul>
+            </div>
+
+            <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE ORACLE</span>
+                    <i class="fas fa-moon card-icon" style="color:#9932cc"></i>
+                </div>
+                <h3 class="card-name">Hilal</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Gölge</span></li>
+                    <li>Renk <span>Gece Moru</span></li>
+                    <li>Sembol <span>Baykuş Gözü</span></li>
+                    <li>Zayıflık <span>Aşırı Analiz</span></li>
+                </ul>
+            </div>
+
+            <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE VITALITY</span>
+                    <i class="fas fa-leaf card-icon" style="color:#32cd32"></i>
+                </div>
+                <h3 class="card-name">Sueda</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Toprak</span></li>
+                    <li>Renk <span>Zümrüt Yeşili</span></li>
+                    <li>Sembol <span>Sarmaşık</span></li>
+                    <li>Zayıflık <span>Dürtüsellik</span></li>
+                </ul>
+            </div>
+
+             <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE STRATEGIST</span>
+                    <i class="fas fa-water card-icon" style="color:#1e90ff"></i>
+                </div>
+                <h3 class="card-name">Zeynep</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Su</span></li>
+                    <li>Renk <span>Safir Mavi</span></li>
+                    <li>Sembol <span>Çapa</span></li>
+                    <li>Zayıflık <span>Şüphecilik</span></li>
+                </ul>
+            </div>
+
+            <div class="member-card reveal">
+                <div class="card-header">
+                    <span class="card-role">THE RADIANCE</span>
+                    <i class="fas fa-sun card-icon" style="color:#ffd700"></i>
+                </div>
+                <h3 class="card-name">Esin</h3>
+                <ul class="card-stats">
+                    <li>Element <span>Işık</span></li>
+                    <li>Renk <span>Altın Sarısı</span></li>
+                    <li>Sembol <span>Hale</span></li>
+                    <li>Zayıflık <span>Saflık</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <h2 class="section-title reveal">III. CHRONOLOGY</h2>
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <span class="tl-date">14.05.2023</span>
+                    <h3>Protokol Başlangıcı</h3>
+                    <p>Gizli seçmeler yapıldı. 100 aday kampa alındı.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <span class="tl-date">21.12.2023</span>
+                    <h3>The Blackout (Karartma)</h3>
+                    <p>Grubun tüm sosyal medya hesapları silindi. İlk sembol belirdi.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <span class="tl-date">01.01.2024</span>
+                    <h3>İlk Temas: "Rüya"</h3>
+                    <p>Debut single yayınlandı. Klipteki saatler geriye akıyordu.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                    <span class="tl-date">15.08.2025</span>
+                    <h3>Kehanet Kırılması</h3>
+                    <p>Harbiye konserinde "7. Gölge" ilk kez sahnede görüldü.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title reveal">IV. SYMBOLOGY</h2>
+        <div class="symbol-grid reveal">
+            <div class="symbol-box">
+                <i class="fas fa-infinity sym-icon"></i>
+                <span class="sym-title">Döngü</span>
+                <span class="sym-desc">Zamanın lineer değil, dairesel olduğunu simgeler.</span>
+            </div>
+            <div class="symbol-box">
+                <i class="fas fa-eye sym-icon"></i>
+                <span class="sym-title">Uyanış</span>
+                <span class="sym-desc">Üçüncü gözün açılması ve gerçeği görme.</span>
+            </div>
+            <div class="symbol-box">
+                <i class="fas fa-crown sym-icon"></i>
+                <span class="sym-title">Egemenlik</span>
+                <span class="sym-desc">Kendi kaderinin efendisi olma durumu.</span>
+            </div>
+        </div>
+
+        <div class="oath-section reveal">
+            <i class="fas fa-quote-left" style="color:var(--gold-dim); font-size:2rem; margin-bottom:30px;"></i>
+            <p class="oath-text">
+                "Bizler, farklı renklerin ve seslerin birleşimi olarak;<br>
+                Sınırları reddetmeye, karanlığı aydınlatmaya ve<br>
+                Ruhumuzu sansürsüzce sahneye dökmeye yemin ederiz.<br>
+                Biz Manifest'iz. Biz Buradayız. Biz Şimdi'yiz."
+            </p>
+            <div class="oath-sign">
+                — FOUNDING CHARTER, ARTICLE I
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-spotify"></i></a>
+        </div>
+        <p>SYSTEM STATUS: ONLINE | © 2025 MANIFEST ENT. | RESTRICTED ACCESS</p>
+    </footer>
+
+    <script>
+        // --- LOADER LOGIC ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const text = loader.querySelector('.loader-text');
+            
+            setTimeout(() => {
+                text.innerText = "ACCESS GRANTED";
+                text.style.color = "#32cd32"; // Green
+            }, 1500);
+
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 1000);
+            }, 2500);
+        });
+
+        // --- SCROLL REVEAL ---
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

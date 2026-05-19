@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>TOUR DATES | MANIFEST WORLD TOUR 2025-26</title>
+    <meta name="description" content="Manifest Dünya Turnesi resmi takvimi. Türkiye, Avrupa ve Asya konser tarihleri, VIP paketler ve bilet satış linkleri.">
+    <meta name="author" content="Manifest Entertainment">
+    <meta name="theme-color" content="#ff0055">
+    
+    <link rel="icon" type="image/png" href="pictures/favicon.png"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Syncopate:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. CORE SYSTEM (Tour Theme)
+           ========================================= */
+        :root {
+            --bg-root: #050505;
+            --bg-panel: #0e0e0e;
+            
+            /* Colors */
+            --primary: #ff0055;       /* Tour Pink */
+            --accent: #00f2ff;        /* Laser Blue */
+            --gold: #d4af37;          /* VIP Gold */
+            --danger: #ff2a2a;        /* Sold Out */
+            --success: #00ff9d;       /* On Sale */
+            
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            
+            /* Fonts */
+            --font-main: 'Inter', sans-serif;
+            --font-head: 'Syncopate', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+            --font-data: 'Rajdhani', sans-serif;
+            
+            /* UI */
+            --border: 1px solid rgba(255, 255, 255, 0.1);
+            --glass: blur(20px) saturate(180%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body {
+            background-color: var(--bg-root);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(to bottom, rgba(0,0,0,0.8), #050505),
+                url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-root); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        /* =========================================
+           2. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5, 5, 5, 0.9); backdrop-filter: var(--glass);
+            border-bottom: var(--border); transition: 0.4s;
+        }
+        nav.scrolled { padding: 15px 5%; background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--primary); }
+
+        .logo { font-family: var(--font-head); font-weight: 900; font-size: 1.8rem; letter-spacing: -2px; color: white; text-decoration: none; }
+        .logo span { color: var(--primary); }
+        
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-link { font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #ccc; text-decoration: none; position: relative; transition: 0.3s; }
+        .nav-link::before { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { color: white; }
+        .nav-link:hover::before, .nav-link.active::before { width: 100%; }
+
+        /* =========================================
+           3. TOUR HERO & COUNTDOWN
+           ========================================= */
+        .tour-hero {
+            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; position: relative;
+        }
+        
+        .tour-badge {
+            padding: 5px 20px; border: 1px solid var(--accent); color: var(--accent);
+            font-family: var(--font-tech); font-size: 0.8rem; margin-bottom: 20px;
+            background: rgba(0, 242, 255, 0.1); letter-spacing: 3px;
+        }
+
+        h1 {
+            font-family: var(--font-head); font-size: 5rem; line-height: 0.9; margin-bottom: 30px;
+            text-transform: uppercase; color: white; text-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
+        }
+        h1 span { color: transparent; -webkit-text-stroke: 2px var(--primary); }
+
+        /* Countdown */
+        .countdown {
+            display: flex; gap: 40px; margin-top: 40px;
+        }
+        .cd-item { text-align: center; }
+        .cd-num { font-family: var(--font-tech); font-size: 3rem; font-weight: 700; color: white; display: block; line-height: 1; }
+        .cd-lbl { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* =========================================
+           4. TOUR DATES LIST
+           ========================================= */
+        .tour-container {
+            max-width: 1400px; margin: 0 auto; padding: 100px 5%; background: #050505; position: relative;
+        }
+
+        .filters {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 60px;
+        }
+        .filter-btn {
+            background: transparent; border: 1px solid #333; color: #888;
+            padding: 10px 30px; font-family: var(--font-tech); text-transform: uppercase;
+            cursor: pointer; transition: 0.3s; letter-spacing: 1px; font-weight: 600;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary); color: white; border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255,0,85,0.3);
+        }
+
+        /* Concert Row */
+        .tour-row {
+            display: grid; grid-template-columns: 100px 1fr 150px 180px;
+            align-items: center; gap: 30px; padding: 30px;
+            border-bottom: 1px solid #222; transition: 0.3s; position: relative;
+        }
+        .tour-row:hover { background: rgba(255,255,255,0.03); border-color: var(--border-color); }
+        .tour-row::before {
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px;
+            background: var(--border-color); transform: scaleY(0); transition: 0.3s;
+        }
+        .tour-row:hover::before { transform: scaleY(1); }
+
+        /* Date Column */
+        .t-date { text-align: center; line-height: 1.2; }
+        .t-day { font-family: var(--font-tech); font-size: 2rem; font-weight: 700; color: white; display: block; }
+        .t-month { font-family: var(--font-head); font-size: 0.9rem; color: var(--border-color); }
+
+        /* Info Column */
+        .t-info h3 { font-family: var(--font-head); font-size: 1.5rem; color: white; margin-bottom: 5px; }
+        .t-info p { color: #888; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; }
+        .t-info i { color: var(--border-color); }
+
+        /* Status Badge */
+        .t-status { text-align: center; }
+        .status-tag {
+            font-family: var(--font-tech); font-size: 0.7rem; padding: 5px 10px;
+            border: 1px solid var(--border-color); color: var(--border-color);
+            text-transform: uppercase; border-radius: 2px;
+        }
+
+        /* Button */
+        .t-action a {
+            display: block; padding: 15px 0; text-align: center; text-decoration: none;
+            background: transparent; border: 1px solid var(--border-color); color: var(--border-color);
+            font-family: var(--font-head); font-weight: 700; font-size: 0.8rem;
+            transition: 0.3s; text-transform: uppercase;
+        }
+        .t-action a:hover { background: var(--border-color); color: black; box-shadow: 0 0 20px var(--border-color); }
+
+        /* States Colors */
+        .state-onsale { --border-color: var(--success); }
+        .state-sellingfast { --border-color: var(--accent); }
+        .state-soldout { --border-color: var(--danger); }
+        .state-vip { --border-color: var(--gold); }
+
+        /* VIP Section */
+        .vip-banner {
+            margin-top: 100px; padding: 60px; background: linear-gradient(45deg, #1a1500, #000);
+            border: 1px solid var(--gold); text-align: center; position: relative; overflow: hidden;
+        }
+        .vip-banner h2 { font-family: var(--font-head); color: var(--gold); font-size: 2.5rem; margin-bottom: 20px; }
+        .vip-banner p { color: #ccc; max-width: 600px; margin: 0 auto 30px; }
+        .vip-btn {
+            background: var(--gold); color: black; padding: 15px 40px; text-decoration: none;
+            font-family: var(--font-head); font-weight: 900; transition: 0.3s;
+        }
+        .vip-btn:hover { background: white; box-shadow: 0 0 30px var(--gold); }
+
+        /* Footer */
+        footer { background: #020202; border-top: 1px solid #222; padding: 60px 5%; text-align: center; }
+        .social-icons { margin-bottom: 30px; display: flex; justify-content: center; gap: 25px; }
+        .social-icons i { font-size: 1.5rem; color: #555; transition: 0.3s; cursor: pointer; }
+        .social-icons i:hover { color: var(--primary); transform: scale(1.2); }
+
+        /* Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s var(--ease-out); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            h1 { font-size: 3rem; }
+            .tour-row { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+            .t-info p { justify-content: center; }
+            .tour-row::before { height: 4px; width: 100%; top: 0; left: 0; transform: scaleX(0); transform-origin: center; }
+            .tour-row:hover::before { transform: scaleX(1); transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">MANI<span>I</span>FEST</a>
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">ANA SAYFA</a>
+            <a href="konser_takvimi.html" class="nav-link active">TURNE</a>
+            <a href="fan_projeleri.html" class="nav-link">IMPACT</a>
+            <a href="haberler.html" class="nav-link">NEWS</a>
+        </div>
+    </nav>
+
+    <header class="tour-hero">
+        <span class="tour-badge">WORLD TOUR 2025-26</span>
+        <h1 class="reveal">MANIFEST<span>IVAL</span></h1>
+        <div class="countdown reveal">
+            <div class="cd-item"><span class="cd-num" id="days">00</span><span class="cd-lbl">GÜN</span></div>
+            <div class="cd-item"><span class="cd-num" id="hours">00</span><span class="cd-lbl">SAAT</span></div>
+            <div class="cd-item"><span class="cd-num" id="mins">00</span><span class="cd-lbl">DAKİKA</span></div>
+        </div>
+        <p class="reveal" style="margin-top:30px; color:#aaa; font-size:0.9rem;">NEXT STOP: ANKARA, TR</p>
+    </header>
+
+    <div class="tour-container">
+        
+        <div class="filters reveal">
+            <button class="filter-btn active" onclick="filterTour('all')">TÜMÜ</button>
+            <button class="filter-btn" onclick="filterTour('tr')">TÜRKİYE</button>
+            <button class="filter-btn" onclick="filterTour('eu')">AVRUPA</button>
+            <button class="filter-btn" onclick="filterTour('asia')">ASYA</button>
+        </div>
+
+        <div id="tour-list">
+
+            <div class="tour-row state-onsale reveal" data-region="tr">
+                <div class="t-date">
+                    <span class="t-day">05</span>
+                    <span class="t-month">ARA</span>
+                </div>
+                <div class="t-info">
+                    <h3>ANKARA MANIFEST PARTY</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Route Selanik, Ankara</p>
+                </div>
+                <div class="t-status"><span class="status-tag">SATIŞTA</span></div>
+                <div class="t-action"><a href="https://biletimgo.com" target="_blank">BİLET AL</a></div>
+            </div>
+
+            <div class="tour-row state-sellingfast reveal" data-region="tr">
+                <div class="t-date">
+                    <span class="t-day">13</span>
+                    <span class="t-month">ARA</span>
+                </div>
+                <div class="t-info">
+                    <h3>WONDER VILLAGE FESTIVAL</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> KüçükÇiftlik Park, İstanbul</p>
+                </div>
+                <div class="t-status"><span class="status-tag">AZ KALDI</span></div>
+                <div class="t-action"><a href="https://lifepark.com.tr" target="_blank">BİLET AL</a></div>
+            </div>
+
+            <div class="tour-row state-vip reveal" data-region="tr">
+                <div class="t-date">
+                    <span class="t-day">20</span>
+                    <span class="t-month">ARA</span>
+                </div>
+                <div class="t-info">
+                    <h3>'BUZ' SINGLE LAUNCH</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Havagazı Fabrikası, İzmir</p>
+                </div>
+                <div class="t-status"><span class="status-tag">VIP MEVCUT</span></div>
+                <div class="t-action"><a href="https://bubilet.com.tr" target="_blank">PAKETLER</a></div>
+            </div>
+
+            <div class="tour-row state-soldout reveal" data-region="eu">
+                <div class="t-date">
+                    <span class="t-day">10</span>
+                    <span class="t-month">OCA</span>
+                </div>
+                <div class="t-info">
+                    <h3>BERLIN KESSELHAUS</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Berlin, Almanya</p>
+                </div>
+                <div class="t-status"><span class="status-tag">TÜKENDİ</span></div>
+                <div class="t-action"><a href="#" style="cursor:default; opacity:0.5;">BEKLEME LİSTESİ</a></div>
+            </div>
+
+            <div class="tour-row state-sellingfast reveal" data-region="eu">
+                <div class="t-date">
+                    <span class="t-day">15</span>
+                    <span class="t-month">OCA</span>
+                </div>
+                <div class="t-info">
+                    <h3>O2 ACADEMY ISLINGTON</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> London, UK</p>
+                </div>
+                <div class="t-status"><span class="status-tag">SON 50</span></div>
+                <div class="t-action"><a href="#" target="_blank">BİLET AL</a></div>
+            </div>
+
+            <div class="tour-row state-onsale reveal" data-region="asia">
+                <div class="t-date">
+                    <span class="t-day">25</span>
+                    <span class="t-month">OCA</span>
+                </div>
+                <div class="t-info">
+                    <h3>CRYSTAL HALL ARENA</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Bakü, Azerbaycan</p>
+                </div>
+                <div class="t-status"><span class="status-tag">SATIŞTA</span></div>
+                <div class="t-action"><a href="#" target="_blank">BİLET AL</a></div>
+            </div>
+
+             <div class="tour-row state-vip reveal" data-region="asia">
+                <div class="t-date">
+                    <span class="t-day">14</span>
+                    <span class="t-month">ŞUB</span>
+                </div>
+                <div class="t-info">
+                    <h3>VALENTINE'S FAN MEET</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Gangnam Art Hall, Seoul</p>
+                </div>
+                <div class="t-status"><span class="status-tag">YAKINDA</span></div>
+                <div class="t-action"><a href="#">BİLGİ AL</a></div>
+            </div>
+
+        </div>
+
+        <div class="vip-banner reveal">
+            <h2>MANIFEST VIP EXPERIENCE</h2>
+            <p>Soundcheck'e katılın, grup üyeleriyle tanışın ve imzalı ürünlere sahip olun. Sınırlı sayıda VIP paketi şimdi satışta.</p>
+            <a href="#" class="vip-btn">PAKETLERİ İNCELE</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-youtube"></i>
+            <i class="fab fa-spotify"></i>
+            <i class="fab fa-tiktok"></i>
+        </div>
+        <p style="color:#555; font-size:0.8rem; font-family:var(--font-tech);">© 2025 MANIFEST ENTERTAINMENT.</p>
+    </footer>
+
+    <script>
+        /* --- 1. SCROLL REVEAL --- */
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('active');
+                }
+            });
+        });
+        window.dispatchEvent(new Event('scroll')); // Trigger on load
+
+        /* --- 2. FILTER LOGIC --- */
+        function filterTour(region) {
+            const rows = document.querySelectorAll('.tour-row');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            rows.forEach(row => {
+                if(region === 'all' || row.getAttribute('data-region') === region) {
+                    row.style.display = 'grid';
+                    setTimeout(() => row.style.opacity = '1', 50);
+                } else {
+                    row.style.opacity = '0';
+                    setTimeout(() => row.style.display = 'none', 300);
+                }
+            });
+        }
+
+        /* --- 3. COUNTDOWN LOGIC --- */
+        // Set the date we're counting down to (Next Concert: Dec 5, 2025)
+        const countDownDate = new Date("Dec 5, 2025 20:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("mins").innerText = minutes < 10 ? "0" + minutes : minutes;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".countdown").innerHTML = "ETKİNLİK BAŞLADI";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>

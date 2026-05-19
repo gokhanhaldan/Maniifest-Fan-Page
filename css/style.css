@@ -1,0 +1,603 @@
+/* MANIIFEST FAN PAGE STYLE - Profesyonel ve Geliştirilmiş Versiyon */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap');
+
+/* --- CSS Değişkenleri (Custom Properties) --- */
+:root {
+    --color-primary: #ff68b9; /* Canlı Pembe Vurgu */
+    --color-secondary: #4eb7c5; /* Alternatif Mavi Vurgu */
+    --color-dark: #0a0a0a;
+    --color-darker: #1a1a1a;
+    --color-text: #fff;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* --- GENEL TANIMLAR --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    background-color: var(--color-dark);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    /* 3. Rastgele Arkaplan için Body Ayarı (JS ile değiştirilecek) */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    transition: background-image 1s ease-in-out; 
+}
+
+/* --- ORTAK SINIFLAR --- */
+.section-padding { 
+    padding: 100px 5%; 
+    text-align: center;
+}
+.dark-section { background-color: var(--color-darker); }
+.section-title {
+    font-size: 3.5em;
+    margin-bottom: 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--color-primary);
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 4px;
+    background-color: var(--color-text);
+    margin: 10px auto 0;
+    transform: skewX(-15deg);
+}
+
+.grid {
+    display: grid;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* --- NAVIGASYON (HEADER) & MENÜ GELİŞTİRMELERİ --- */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background 0.4s ease;
+}
+
+#main-nav {
+    display: flex;
+    /* justify-content: space-between; YERİNE: */
+    justify-content: flex-start; /* Logo sola, ortadaki menü ortalanacak */
+    align-items: center;
+    padding: 15px 5%;
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 3px solid var(--color-primary);
+    transition: all var(--transition-speed) ease;
+    /* Flexbox içinde elemanların nasıl dağılacağını belirleriz */
+}
+
+.nav-scrolled {
+    background: var(--color-dark) !important;
+    padding: 10px 5% !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: 900;
+    color: var(--color-primary);
+    letter-spacing: 3px;
+    margin-right: auto; /* Logoyu sola itip, nav-links'i ortalamaya hazırlar */
+}
+
+/* Ana link grubunu merkeze almak */
+.center-nav-links { 
+    list-style: none; 
+    display: flex; 
+    margin: 0 auto; /* ORTALAMA İŞLEMİNİ YAPAR */
+    padding: 0;
+}
+.nav-links li { margin: 0 15px; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 5px 0;
+    position: relative;
+}
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: width var(--transition-speed) ease-in-out;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.burger { 
+    display: none; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    padding: 0; 
+    margin-left: 15px; /* Sağ menüye yakın olması için boşluk */
+}
+.burger div { width: 25px; height: 3px; background-color: var(--color-text); margin: 5px; transition: all var(--transition-speed) ease; }
+
+
+/* 4. Üst Sağ Menü Butonu ve Dropdown */
+.right-menu-container {
+    position: relative;
+    margin-left: auto; /* Sağdaki elemanları sağa yaslar */
+    order: 3; /* Mobil görünümde burger'dan sonra gelmesi için */
+}
+
+#extra-menu-btn {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1010; 
+    transition: color 0.3s;
+}
+
+#extra-menu-btn:hover {
+    color: var(--color-text); 
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.95); 
+    min-width: 220px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+    z-index: 1000;
+    border-top: 3px solid var(--color-primary);
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: var(--color-text);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+}
+
+.dropdown-content a i {
+    margin-right: 10px;
+    width: 20px; /* İkonların hizalanması için */
+}
+
+.show-dropdown {
+    display: block;
+}
+
+
+/* --- HERO SECTION --- (Glitch efekti dahil) */
+.hero {
+    height: 100vh;
+    /* JS ile random arkaplan atanacağı için bu satırı yorumda bırakabiliriz: */
+    /* background: url('../pictures/gallery/4.jpg') no-repeat center center/cover; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.9));
+}
+.hero-content { z-index: 1; padding-top: 80px; }
+
+/* GLITCH EFFECT (Mevcut Keyframeler korunmuştur) */
+.glitch {
+    font-size: 6em; 
+    font-weight: 900;
+    letter-spacing: 15px;
+    color: var(--color-text);
+    text-transform: uppercase;
+    position: relative;
+}
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-primary);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim-before 1.5s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-secondary);
+    clip: rect(85px, 450px, 140px, 0);
+    animation: glitch-anim-after 2s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim-before {
+    0% { clip: rect(42px, 9999px, 80px, 0); transform: skew(0.5deg); }
+    30% { clip: rect(100px, 9999px, 130px, 0); transform: skew(0.1deg); }
+    60% { clip: rect(5px, 9999px, 50px, 0); transform: skew(-0.5deg); }
+    100% { clip: rect(150px, 9999px, 190px, 0); transform: skew(0.2deg); }
+}
+@keyframes glitch-anim-after {
+    0% { clip: rect(10px, 9999px, 40px, 0); transform: skew(0.1deg); }
+    45% { clip: rect(120px, 9999px, 150px, 0); transform: skew(-0.3deg); }
+    70% { clip: rect(60px, 9999px, 90px, 0); transform: skew(0.4deg); }
+    100% { clip: rect(180px, 9999px, 210px, 0); transform: skew(-0.2deg); }
+}
+.hero h2 { font-size: 1.8em; font-weight: 300; margin-top: 15px; letter-spacing: 3px; color: #ccc; }
+
+/* 1. Müzik Kontrol Butonu */
+.audio-control-btn {
+    display: block; 
+    margin: 10px auto 20px auto !important; /* Önceki margin değerlerini geçersiz kılar */
+}
+.hero .btn-primary {
+    margin-top: 10px; 
+}
+
+
+/* --- DÜĞMELER --- */
+.btn-primary, .btn-secondary {
+    display: inline-block;
+    padding: 12px 30px;
+    margin-top: 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--transition-speed) ease;
+}
+.btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+}
+.btn-primary:hover {
+    background-color: transparent;
+    box-shadow: 0 0 25px var(--color-primary);
+    transform: translateY(-2px);
+}
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    margin-bottom: 20px;
+}
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    box-shadow: 0 0 20px var(--color-primary);
+    transform: scale(1.05);
+}
+
+
+/* --- ÜYELER (MEMBERS) --- */
+.group-manifesto { 
+    font-size: 1.2em; 
+    max-width: 900px; 
+    margin: 0 auto 60px;
+    color: #b3b3b3; 
+    text-align: center;
+}
+.member-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.member-card { 
+    background-color: var(--color-darker);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    border: 3px solid transparent;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    position: relative;
+}
+.member-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 15px;
+    border: 3px solid transparent;
+    z-index: 2;
+    pointer-events: none;
+    transition: border-color 0.5s ease;
+}
+.member-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+.member-card:hover::before {
+    border-color: var(--member-color);
+}
+.member-card img {
+    border-radius: 50%; 
+    width: 180px; 
+    height: 180px; 
+    object-fit: cover; 
+    margin-bottom: 20px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.5s ease;
+}
+.member-card:hover img {
+    border-color: var(--member-color);
+}
+.member-card h5 {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--member-color);
+}
+.member-card .role {
+    font-size: 1.1em;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #ccc;
+}
+.member-card .bio-short {
+    font-size: 0.9em;
+    color: #a0a0a0;
+}
+/* ÜYE RENKLERİ */
+.member-card.red { --member-color: #ff3f3f; }
+.member-card.pink { --member-color: #ff69b4; }
+.member-card.purple { --member-color: #ab2fe9; }
+.member-card.green { --member-color: #72c772; }
+.member-card.blue { --member-color: #3b80c6; }
+.member-card.yellow { --member-color: #ffe868; }
+
+
+/* --- MEDYA (MÜZİK & VİDEO) --- */
+/* 2. MP3 Listesi Stil (Music Player Section) */
+.music-player-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+.music-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+    margin-bottom: 50px; /* Video bölümünden ayırmak için */
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.song-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+.song-item:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.song-item h5 {
+    color: var(--color-secondary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+.full-width-audio {
+    width: 100%;
+    margin-bottom: 15px;
+    filter: invert(100%); /* Karanlık temaya uygun hale getirme denemesi */
+}
+.btn-download {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-dark);
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+    font-size: 0.9em;
+}
+.btn-download:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+}
+
+/* Mevcut Medya Kontrolleri */
+.media-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1400px;
+    margin: 0 auto 50px;
+}
+.media-item {
+    background-color: #1f1f1f;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.media-title {
+    color: var(--color-primary);
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 3px solid var(--color-secondary);
+}
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- GALERİ --- */
+.gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.grid-item {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    cursor: zoom-in;
+}
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease-in-out, opacity 0.6s ease;
+}
+.grid-item:hover img {
+    transform: scale(1.08) rotate(1deg);
+    opacity: 0.9;
+}
+.gallery-count {
+    margin-top: 50px;
+    font-size: 1.2em;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #111;
+    padding: 60px 5%;
+    text-align: center;
+    border-top: 5px solid var(--color-primary);
+}
+.footer-content { max-width: 1000px; margin: 0 auto; }
+.footer-title { font-size: 2em; margin-bottom: 15px; color: var(--color-primary); }
+footer p { color: #aaa; margin-bottom: 10px; text-align: center; } 
+footer a { color: var(--color-primary); text-decoration: none; transition: color var(--transition-speed); }
+footer a:hover { color: var(--color-secondary); }
+.social-icons { margin: 30px 0; }
+.social-icons a {
+    color: var(--color-text);
+    font-size: 28px;
+    margin: 0 18px;
+    transition: color var(--transition-speed), transform var(--transition-speed);
+}
+.social-icons a:hover { 
+    color: var(--color-primary); 
+    transform: scale(1.2) rotate(5deg);
+}
+.contact-info { margin-top: 20px; font-size: 1.1em; }
+.copyright { font-size: 0.9em; margin-top: 30px; color: #666; }
+
+
+/* --- MOBİL UYUM (MEDIA QUERIES) --- */
+@media (max-width: 992px) {
+    /* Ana menüyü gizle (ortalanmış menüyü mobil menüye taşı) */
+    .center-nav-links { display: none; }
+    .burger { display: block; }
+    
+    #main-nav { 
+        padding: 15px 5%; 
+        justify-content: space-between; /* Mobil menüde logoyu sola, butonları sağa yaslar */
+    }
+    .logo { 
+        font-size: 1.3em; 
+        margin-right: 0;
+    }
+
+    /* Mobil menü açıldığında */
+    .nav-active .center-nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.98);
+        padding: 20px 0;
+        border-top: 1px solid var(--color-primary);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+    }
+    .nav-active .nav-links li { margin: 10px 0; }
+    
+    /* Sağ üst menü (dropdown) mobil görünümde */
+    .right-menu-container {
+        position: static; 
+        order: 2; /* Burger'dan hemen sonra gelir */
+    }
+    .dropdown-content {
+        position: fixed; /* Ekranın sağ üst köşesine sabitlenir */
+        top: 60px; /* Header yüksekliğinden sonra başlar */
+        right: 10px;
+        z-index: 999;
+    }
+
+    /* Burger animasyonu */
+    .toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+    .toggle .line2 { opacity: 0; }
+    .toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+    
+    .glitch { font-size: 4em; letter-spacing: 10px; }
+}
+
+@media (max-width: 576px) {
+    .section-title { font-size: 2.5em; }
+    .glitch { font-size: 3em; letter-spacing: 5px; }
+    .hero h2 { font-size: 1.4em; letter-spacing: 2px; }
+    .member-card h5 { font-size: 1.5em; }
+    .member-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .hero-content { padding: 0 20px; }
+    
+    .music-list {
+        grid-template-columns: 1fr;
+    }
+}

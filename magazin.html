@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>MANIFEST CONFIDENTIAL | THE UNTOLD FILES</title>
+    <meta name="theme-color" content="#080405">
+    <meta name="description" content="Manifest Grubu hakkında sızdırılan gizli dosyalar.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. LUXURY VARIABLES & RESET
+           ========================================= */
+        :root {
+            /* Palette: Dark Feminine & Expensive */
+            --bg-deep: #080405;
+            --bg-panel: rgba(20, 12, 15, 0.7);
+            
+            --primary: #d4af37;       /* Champagne Gold */
+            --accent: #ff4d80;        /* Hot Pink (Subtle) */
+            --secondary: #4a0e22;     /* Deep Burgundy */
+            --text-main: #f5e6ea;     /* Soft White */
+            --text-muted: #ad9ca0;    /* Warm Grey */
+            
+            --border-glass: 1px solid rgba(255, 200, 210, 0.08);
+            --shadow-lux: 0 30px 60px -15px rgba(0,0,0,0.9);
+            
+            /* Fonts */
+            --font-body: 'Montserrat', sans-serif;
+            --font-serif: 'Playfair Display', serif; 
+            --font-header: 'Cinzel', serif; 
+            
+            /* Layout */
+            --container: 1250px;
+            --glass: blur(25px) saturate(160%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        ::selection { background: var(--secondary); color: var(--primary); }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background Mesh */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 40%, rgba(74, 14, 34, 0.3), transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(212, 175, 55, 0.1), transparent 35%),
+                radial-gradient(circle at 50% 80%, rgba(255, 77, 128, 0.08), transparent 50%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* =========================================
+           2. PRELOADER
+           ========================================= */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-deep); z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease; flex-direction: column;
+        }
+        .loader-text {
+            font-family: var(--font-header); font-size: 2.5rem; letter-spacing: 12px;
+            color: var(--primary); animation: fadeText 2s infinite alternate; margin-bottom: 10px;
+        }
+        .loader-sub {
+            font-size: 0.8rem; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase;
+        }
+        @keyframes fadeText { 0% { opacity: 0.4; letter-spacing: 12px; } 100% { opacity: 1; letter-spacing: 15px; } }
+
+        /* =========================================
+           3. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 30px 5%; display: flex; justify-content: space-between; align-items: center;
+            transition: 0.4s ease; border-bottom: 1px solid transparent;
+        }
+        nav.scrolled {
+            padding: 15px 5%; background: rgba(8, 4, 5, 0.95); 
+            backdrop-filter: blur(10px); border-bottom: var(--border-glass);
+        }
+
+        .logo {
+            font-family: var(--font-header); font-size: 1.6rem; color: white; 
+            text-decoration: none; letter-spacing: 2px; font-weight: 700;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-menu { display: flex; gap: 40px; }
+        .nav-link {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); text-decoration: none; position: relative;
+            transition: color 0.3s; font-weight: 500;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 1px;
+            background: var(--primary); transition: 0.4s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover { color: var(--primary); }
+        .nav-link:hover::after { width: 100%; }
+
+        /* =========================================
+           4. HERO SECTION
+           ========================================= */
+        header.hero {
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 20px; position: relative;
+        }
+        
+        .confidential-badge {
+            border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px;
+            font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;
+            background: rgba(255, 77, 128, 0.05);
+        }
+
+        h1 {
+            font-family: var(--font-header); font-size: clamp(3rem, 8vw, 7.5rem);
+            line-height: 0.95; margin-bottom: 25px; color: white;
+            text-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+        }
+        h1 span { font-family: var(--font-serif); color: var(--primary); font-style: italic; font-weight: 400; }
+
+        .hero-sub {
+            font-family: var(--font-serif); font-style: italic; font-size: 1.3rem;
+            color: var(--text-muted); max-width: 650px; margin-top: 10px;
+            border-left: 2px solid var(--secondary); padding-left: 20px;
+        }
+
+        .scroll-indicator {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            font-size: 0.7rem; letter-spacing: 4px; color: var(--text-muted);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);} 40% {transform: translateY(-10px) translateX(-50%);} 60% {transform: translateY(-5px) translateX(-50%);} }
+
+        /* =========================================
+           5. MAIN LAYOUT & CARDS
+           ========================================= */
+        .container {
+            max-width: var(--container); margin: 0 auto; padding: 100px 20px;
+            display: grid; grid-template-columns: 8fr 3.5fr; gap: 70px;
+            align-items: start;
+        }
+
+        /* Article Styling */
+        .article-card {
+            background: var(--bg-panel); 
+            border: var(--border-glass);
+            border-radius: 0px; padding: 60px; margin-bottom: 60px;
+            backdrop-filter: var(--glass);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; overflow: hidden;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lux);
+            border-color: rgba(255, 77, 128, 0.2);
+        }
+        
+        /* Decorative Side Line */
+        .article-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            opacity: 0.8;
+        }
+
+        .meta-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .meta-tag {
+            font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--primary); font-weight: 600;
+        }
+        .meta-date { font-size: 0.7rem; color: #666; font-family: var(--font-header); }
+        
+        .card-title {
+            font-family: var(--font-serif); font-size: 2.8rem; margin-bottom: 25px;
+            color: white; line-height: 1.1; letter-spacing: -1px;
+        }
+        
+        .card-body {
+            font-size: 1.1rem; color: #ccc; margin-bottom: 35px; line-height: 1.9;
+        }
+
+        /* Quote Box */
+        .quote-box {
+            border-left: 2px solid var(--accent); padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.02); margin: 30px 0;
+            font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: #eee;
+        }
+
+        /* Grid for Details */
+        .details-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+            margin-top: 40px; padding-top: 30px; 
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .detail-item h5 {
+            font-family: var(--font-header); color: var(--primary); 
+            margin-bottom: 10px; font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .detail-item p { font-size: 0.95rem; color: var(--text-muted); }
+        .detail-item i { margin-right: 8px; color: var(--secondary); }
+
+        /* =========================================
+           6. SIDEBAR & WIDGETS
+           ========================================= */
+        aside { position: sticky; top: 110px; }
+
+        .widget {
+            margin-bottom: 50px; padding: 35px;
+            border: 1px solid rgba(255,255,255,0.03);
+            background: linear-gradient(160deg, rgba(255,255,255,0.02), transparent);
+            position: relative;
+        }
+        /* Gold Corner Accent */
+        .widget::after {
+            content: ''; position: absolute; top: -1px; right: -1px; width: 20px; height: 20px;
+            border-top: 1px solid var(--primary); border-right: 1px solid var(--primary);
+        }
+
+        .widget-title {
+            font-family: var(--font-header); font-size: 1.1rem; color: white;
+            text-align: center; margin-bottom: 30px; padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1); letter-spacing: 3px;
+        }
+
+        /* Table Styling */
+        .chic-table { width: 100%; border-collapse: collapse; }
+        .chic-table td { 
+            padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04); 
+            font-size: 0.85rem; color: #999;
+        }
+        .chic-table tr:last-child td { border-bottom: none; }
+        .chic-table td:last-child { 
+            text-align: right; color: var(--text-main); 
+            font-family: var(--font-header); letter-spacing: 1px;
+        }
+        .status-single { color: var(--green, #00ff9d) !important; }
+        .status-taken { color: var(--red, #ff4d4d) !important; }
+
+        /* List Styling */
+        .chic-list li {
+            list-style: none; padding: 12px 0; color: #bbb; font-size: 0.9rem;
+            display: flex; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+        .chic-list li:last-child { border-bottom: none; }
+        .chic-list li::before {
+            content: '✦'; display: inline-block; color: var(--accent); 
+            margin-right: 15px; font-size: 0.8rem; margin-top: 3px;
+        }
+
+        /* =========================================
+           7. FOOTER
+           ========================================= */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.05); padding: 100px 0;
+            text-align: center; background: #050203; margin-top: 50px;
+        }
+        .social-row { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; }
+        .social-row a { color: var(--text-muted); font-size: 1.6rem; transition: 0.3s; }
+        .social-row a:hover { color: var(--primary); transform: scale(1.1); }
+        
+        .brand-sig {
+            font-family: var(--font-header); font-size: 2.5rem; margin-bottom: 15px; color: #333; letter-spacing: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container { grid-template-columns: 1fr; padding: 60px 20px; }
+            h1 { font-size: 4rem; }
+            aside { display: none; }
+            .nav-menu { display: none; }
+        }
+        
+        /* Animation */
+        .fade-up { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.215, 0.610, 0.355, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-text">MANIFEST</div>
+        <div class="loader-sub">Confidential Files Loading...</div>
+    </div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">MANI<span>I</span>FEST</a>
+        <div class="nav-menu">
+            <a href="#" class="nav-link">Cover Story</a>
+            <a href="#" class="nav-link">The Lawsuit</a>
+            <a href="#" class="nav-link">Astro Drama</a>
+            <a href="#" class="nav-link">Archives</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="fade-up">
+            <div class="confidential-badge">Top Secret / Eyes Only</div>
+            <h1>SCANDAL <span>&</span> <br>STARDOM</h1>
+            <p class="hero-sub">The untold stories, the backstage wars, and the private lives of the group. Access granted to file #74.</p>
+        </div>
+        <div class="scroll-indicator">SCROLL TO UNLOCK</div>
+    </header>
+
+    <div class="container">
+        
+        <main>
+            
+            <article class="article-card fade-up">
+                <div class="meta-header">
+                    <span class="meta-tag" style="color:var(--accent)">EXCLUSIVE REPORT</span>
+                    <span class="meta-date">20 NOV 2025</span>
+                </div>
+                <h2 class="card-title">Celestial Warfare: Scorpio vs. Leo</h2>
+                <div class="card-body">
+                    <p>Dışarıdan her şey mükemmel görünse de, grup içindeki enerji dengeleri astrolojik bir savaş alanına dönmüş durumda. Kulislerden sızan son bilgilere göre, özellikle <strong>Merkür Retrosu</strong> dönemlerinde grup içi iletişim kopukluğu zirve yapıyor.</p>
+                    
+                    <div class="quote-box">
+                        "Lidya'nın derin sessizliği ile Sueda'nın sahne ışığına olan ihtiyacı artık yönetilemez bir kriz yaratıyor."
+                    </div>
+
+                    <p>Grubun en büyük riski olarak tanımlanan bu durum, <strong>Akrep (Lidya)</strong> ve <strong>Aslan (Sueda)</strong> arasındaki bitmek bilmeyen ego savaşından besleniyor. Geçtiğimiz hafta yapılan kostüm provasında, Sueda'nın "kırmızı" rengi sahiplenmesi üzerine Lidya'nın provayı terk ettiği konuşuluyor. Esin (Yay) ise bu iki ateş ve su grubu arasında dengeyi bulmaya çalışan yegane isim.</p>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h5><i class="fas fa-meteor"></i> Risk Analizi</h5>
+                        <p>Grup dağılma riski: %65 (Retro Dönemlerinde).</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5><i class="fas fa-users"></i> Dengeleyici Unsur</h5>
+                        <p>Esin'in diplomatik çabaları grubu bir arada tutuyor.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card fade-up">
+                <div class="meta-header">
+                    <span class="meta-tag">JUDICIAL / BREAKING</span>
+                    <span class="meta-date">UPDATED 1 HR AGO</span>
+                </div>
+                <h2 class="card-title">The Verdict: Case 2025/481</h2>
+                <div class="card-body">
+                    <p>Manifest grubunun Beşiktaş konserindeki olaylı "Zehir" performansı sonrası açılan davada savcılık mütalaasını verdi. TCK 225. Madde (Hayasızca Hareketler) uyarınca istenen cezalar ve avukatların "Sanat Özgürlüğü" savunması sızdı.</p>
+                    <p>Mahkeme koridorlarında konuşulanlara göre, grup üyeleri duruşmaya "All Black" (Simsiyah) kıyafetlerle katılarak sessiz bir protesto gerçekleştirecek.</p>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h5><i class="fas fa-gavel"></i> Savcılık Talebi</h5>
+                        <p>1-3 Yıl hapis ve belirli haklardan yoksun bırakılma.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5><i class="fas fa-calendar-alt"></i> Kritik Tarih</h5>
+                        <p>14 Ocak 2026 - Çağlayan Adliyesi 14. Asliye Ceza.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card fade-up">
+                <div class="meta-header">
+                    <span class="meta-tag" style="color:#a8ffdb">RELATIONSHIPS</span>
+                    <span class="meta-date">INSIDER INFO</span>
+                </div>
+                <h2 class="card-title">Who is Dating Who?</h2>
+                <div class="card-body">
+                    <p>Işıklar kapandığında kim kiminle eve dönüyor? Müzik listelerindeki başarılarının arkasında yatan fırtınalı aşk hayatları deşifre oldu. Söylentilere göre "Grup içi aşk yasağı" kuralı çoktan delindi.</p>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h5>Lidya & Kaan Miraç</h5>
+                        <p>8 aydır birlikteler. Cihangir'de kedileriyle yaşıyorlar (Onaylandı).</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Mina & Anıl Daldal</h5>
+                        <p>Müzisyen çift. Aileler tanıştı, nişan yakın.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Hilal'in Sırrı</h5>
+                        <p>ODTÜ mezunu bir teknoloji CEO'su ile görüşüyor.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Sueda</h5>
+                        <p>Olaylı ayrılık sonrası "Kariyer Detoksu" yapıyor.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="article-card fade-up">
+                <div class="meta-header">
+                    <span class="meta-tag" style="color:var(--primary)">BEAUTY & PLASTIC</span>
+                </div>
+                <h2 class="card-title">The Beauty Files: Natural or Not?</h2>
+                <div class="card-body">
+                    <p>"Doğal Güzellik" efsanesinin sonu mu? Nişantaşı'nın ünlü estetik cerrahları, grubun eski ve yeni fotoğraflarını karşılaştırarak "Ufak Dokunuşları" (Tweakments) analiz etti.</p>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h5>Sueda (Jawline)</h5>
+                        <p>Masseter botoks ile yüz inceltme & Çene dolgusu.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Mina (Fox Eyes)</h5>
+                        <p>Fransız askı tekniği ile kaş kaldırma şüphesi.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Dişler (Veneer)</h5>
+                        <p>Tüm grup üyelerinde "Hollywood Smile" lamine mevcut.</p>
+                    </div>
+                    <div class="detail-item">
+                        <h5>Doğal Kalanlar</h5>
+                        <p>Esin ve Zeynep Sude'de cerrahi iz yok (Sadece cilt bakımı).</p>
+                    </div>
+                </div>
+            </article>
+
+        </main>
+
+        <aside>
+            
+            <div class="widget fade-up">
+                <h4 class="widget-title">FINANCIAL POWER</h4>
+                <table class="chic-table">
+                    <tr><td>Konser Kaşesi</td><td>₺3.5 Milyon</td></tr>
+                    <tr><td>Yıllık Ciro</td><td>₺12 Milyon</td></tr>
+                    <tr><td>En Zengin</td><td>Hilal (Yazılım)</td></tr>
+                    <tr><td>Marka Değeri</td><td>$5.2 Milyon</td></tr>
+                    <tr><td>Global Sıra</td><td>#482</td></tr>
+                </table>
+            </div>
+
+            <div class="widget fade-up">
+                <h4 class="widget-title">RELATIONSHIP STATUS</h4>
+                <table class="chic-table">
+                    <tr><td>Lidya</td><td class="status-taken">TAKEN</td></tr>
+                    <tr><td>Mina</td><td class="status-taken">TAKEN</td></tr>
+                    <tr><td>Sueda</td><td class="status-single">SINGLE</td></tr>
+                    <tr><td>Esin</td><td class="status-single">SINGLE</td></tr>
+                    <tr><td>Hilal</td><td>COMPLICATED</td></tr>
+                    <tr><td>Zeynep</td><td class="status-single">SINGLE</td></tr>
+                </table>
+            </div>
+
+            <div class="widget fade-up">
+                <h4 class="widget-title">THE "BLACKLIST"</h4>
+                <p style="font-size:0.85rem; color:#aaa; margin-bottom:15px;">Markalar veya Mekanlar tarafından yasaklandıkları yerler:</p>
+                <ul class="chic-list">
+                    <li>Soho House Istanbul (Gürültü şikayeti)</li>
+                    <li>Balmain Paris Defilesi (Geç kalma)</li>
+                    <li>Tüm THY Business Lounge (Kostüm krizi)</li>
+                </ul>
+            </div>
+
+            <div class="widget fade-up">
+                <h4 class="widget-title">DIET & RIDER</h4>
+                <ul class="chic-list">
+                    <li>Günde 3L Alkali Su (Zorunlu)</li>
+                    <li>Konser günü 0 Karbonhidrat</li>
+                    <li>Mina & Esin: Pescetarian</li>
+                    <li>Kulis İsteği: Voss Su & Avokado</li>
+                    <li>Yasak: Beyaz Ekmek & Şeker</li>
+                </ul>
+            </div>
+
+            <div class="widget fade-up">
+                <h4 class="widget-title">STYLE ICONS</h4>
+                <table class="chic-table">
+                    <tr><td>Lidya</td><td>Balenciaga / Asi</td></tr>
+                    <tr><td>Mina</td><td>Vintage / Bohem</td></tr>
+                    <tr><td>Sueda</td><td>Off-White / Spor</td></tr>
+                    <tr><td>Esin</td><td>Zara Studio / Minimal</td></tr>
+                    <tr><td>Hilal</td><td>Prada / Tech-Wear</td></tr>
+                    <tr><td>Zeynep</td><td>Chanel / Klasik</td></tr>
+                </table>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <footer>
+        <div class="social-row">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-spotify"></i></a>
+        </div>
+        <div class="brand-sig">MANIFEST ENT.</div>
+        <p style="font-size:0.7rem; letter-spacing:3px; color:#444; text-transform:uppercase;">
+            Confidential Report V8.2 • Do Not Distribute <br> © 2025 Istanbul / London
+        </p>
+    </footer>
+
+    <script>
+        // Preloader Logic
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 800);
+            }, 1500); // 1.5 saniye bekle
+        });
+
+        // Scroll Effects
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+
+            // Element Reveal Animation
+            const reveals = document.querySelectorAll('.fade-up');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 120;
+                
+                if(elementTop < windowHeight - elementVisible) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+        
+        // Initial Trigger
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>

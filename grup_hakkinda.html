@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MANIFEST | Official Group Wiki & Bio</title>
+    <meta name="description" content="Manifest Grubu üyeleri, diskografisi, tarihi ve teknik detayları hakkında resmi veri tabanı.">
+    <meta name="author" content="Manifest Entertainment">
+    <meta name="theme-color" content="#ff0055">
+    
+    <link rel="icon" type="image/png" href="pictures/favicon.png"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Syncopate:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Mono:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. SYSTEM VARIABLES (Editorial Dark Theme)
+           ========================================= */
+        :root {
+            --bg-body: #050505;
+            --bg-panel: #0e0e0e;
+            
+            /* Colors */
+            --primary: #ff0055;       /* Signature Pink */
+            --secondary: #7d00e8;     /* Deep Violet */
+            --gold: #bf9b30;          /* Matte Gold */
+            --accent: #00f2ff;        /* Cyber Cyan */
+            --danger: #ff2a2a;        /* Alert Red */
+            
+            --text-main: #ffffff;
+            --text-muted: #999999;
+            
+            /* Fonts */
+            --font-body: 'Inter', sans-serif;
+            --font-head: 'Syncopate', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-tech: 'Orbitron', sans-serif;
+            
+            /* UI Elements */
+            --border: 1px solid rgba(255, 255, 255, 0.08);
+            --border-light: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+            /* Grainy Texture Overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--primary), var(--secondary)); border-radius: 3px; }
+
+        /* =========================================
+           2. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5, 5, 5, 0.9); backdrop-filter: blur(10px);
+            border-bottom: var(--border); transition: 0.3s;
+        }
+        nav.scrolled { padding: 15px 5%; background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--primary); }
+
+        .logo { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; color: white; text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; 
+            color: #aaa; text-decoration: none; transition: 0.3s; position: relative;
+        }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: var(--primary); transition: 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* =========================================
+           3. HEADER (Clean & Editorial)
+           ========================================= */
+        header {
+            padding: 180px 5% 80px; text-align: center;
+            background: radial-gradient(circle at top center, #1a0a10 0%, var(--bg-body) 70%);
+            border-bottom: var(--border);
+        }
+        
+        .page-tag {
+            font-family: var(--font-mono); color: var(--primary); font-size: 0.8rem; letter-spacing: 2px;
+            border: 1px solid var(--primary); padding: 5px 15px; display: inline-block; margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: var(--font-head); font-size: 4.5rem; line-height: 1; margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; animation: fadeUp 1s 0.1s forwards;
+        }
+        
+        .intro-text {
+            font-family: var(--font-serif); font-size: 1.4rem; color: #ccc; max-width: 800px; margin: 0 auto; font-style: italic;
+            opacity: 0; animation: fadeUp 1s 0.3s forwards;
+        }
+
+        /* =========================================
+           4. STATS BAR
+           ========================================= */
+        .stats-wrapper {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+            max-width: 1200px; margin: -40px auto 60px; padding: 0 5%; position: relative; z-index: 2;
+            opacity: 0; animation: fadeUp 1s 0.5s forwards;
+        }
+        .stat-card {
+            background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(20px);
+            border: var(--border); padding: 30px 20px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: 0.4s; position: relative;
+        }
+        .stat-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:var(--primary); }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        
+        .stat-num { font-family: var(--font-tech); font-size: 2.5rem; font-weight: 700; color: white; display: block; }
+        .stat-lbl { font-family: var(--font-mono); font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* =========================================
+           5. INFO SECTIONS
+           ========================================= */
+        .container { max-width: 1400px; margin: 0 auto; padding: 60px 5%; }
+        
+        .section-title {
+            font-family: var(--font-head); font-size: 2rem; margin-bottom: 50px; 
+            display: flex; align-items: center; gap: 20px; color: white;
+        }
+        .section-title::after { content: ''; flex: 1; height: 1px; background: #222; }
+
+        /* --- GROUP BIO GRID --- */
+        .bio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-bottom: 100px;
+        }
+        
+        .bio-card {
+            background: var(--bg-panel); padding: 35px; border: var(--border);
+            position: relative; transition: 0.3s;
+        }
+        .bio-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,0,85,0.1); }
+        .bio-card h3 { font-family: var(--font-mono); font-size: 1rem; color: var(--gold); margin-bottom: 25px; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1a1a1a; font-size: 0.95rem; }
+        .data-row:last-child { border: none; }
+        .data-label { color: #666; font-weight: 600; font-family: var(--font-mono); font-size: 0.8rem; }
+        .data-val { color: white; text-align: right; }
+
+        /* --- MEMBER PROFILES (Detailed) --- */
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
+        
+        .member-card {
+            background: #0a0a0a; border: 1px solid #1f1f1f; overflow: hidden; transition: 0.3s; position: relative;
+        }
+        .member-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background: var(--member-color); opacity:0.5; }
+        .member-card:hover { border-color: var(--member-color); box-shadow: 0 10px 40px rgba(0,0,0,0.5); transform: translateX(5px); }
+        
+        .member-header {
+            padding: 25px; background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+            border-bottom: 1px solid #1f1f1f; display: flex; justify-content: space-between; align-items: center;
+        }
+        .m-name { font-family: var(--font-head); font-size: 1.4rem; color: white; }
+        .m-role { font-family: var(--font-mono); font-size: 0.7rem; color: var(--member-color); border: 1px solid var(--member-color); padding: 3px 10px; }
+        
+        .m-body { padding: 25px; }
+        .m-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .m-stat-box { background: #111; padding: 12px; border-radius: 2px; border: 1px solid #222; }
+        .ms-label { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-bottom: 3px; font-family: var(--font-mono); }
+        .ms-val { display: block; font-size: 0.9rem; color: #ddd; font-weight: 600; }
+        
+        .m-facts { list-style: none; border-top: 1px solid #1f1f1f; padding-top: 15px; }
+        .m-facts li { font-size: 0.85rem; color: #aaa; margin-bottom: 8px; display: flex; gap: 10px; }
+        .m-facts li i { color: var(--member-color); margin-top: 4px; }
+
+        /* Member Colors */
+        .color-hilal { --member-color: #9932cc; }
+        .color-esin { --member-color: #ffd700; }
+        .color-lidya { --member-color: #ff69b4; }
+        .color-mina { --member-color: #ff0000; }
+        .color-sueda { --member-color: #32cd32; }
+        .color-zeynep { --member-color: #1e90ff; }
+
+        /* --- DISCOGRAPHY TABLE --- */
+        .disco-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        .disco-table th { text-align: left; padding: 20px; color: var(--gold); border-bottom: 2px solid #333; font-family: var(--font-mono); letter-spacing: 1px; }
+        .disco-table td { padding: 20px; border-bottom: 1px solid #222; color: #ccc; }
+        .disco-table tr:hover td { background: #111; color: white; }
+
+        /* --- CRISIS PANEL (Red) --- */
+        .crisis-panel { 
+            border: 1px solid rgba(255, 42, 42, 0.3); background: rgba(255, 42, 42, 0.02); 
+            padding: 40px; margin-bottom: 80px; position: relative; overflow: hidden;
+        }
+        .crisis-panel::before { 
+            content: 'CONFIDENTIAL'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg);
+            font-family: var(--font-head); font-size: 5rem; color: rgba(255, 42, 42, 0.05); pointer-events: none;
+        }
+        .crisis-title { color: var(--danger); font-family: var(--font-head); font-size: 1.5rem; margin-bottom: 30px; display: flex; align-items: center; gap: 15px; }
+        
+        /* --- FOOTER --- */
+        footer { border-top: var(--border); padding: 60px 5%; text-align: center; background: #020202; }
+        .footer-social { display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; }
+        .footer-social i { font-size: 1.5rem; color: #555; transition: 0.3s; cursor: pointer; }
+        .footer-social i:hover { color: white; transform: scale(1.2); color: var(--primary); }
+        
+        /* Animations */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .intro-text { font-size: 1.1rem; }
+            .stats-wrapper { grid-template-columns: 1fr 1fr; }
+            .m-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">MANI<span>I</span>FEST</a>
+        <div class="nav-links">
+            <a href="index.html">ANA SAYFA</a>
+            <a href="grup_hakkinda.html" class="active">WIKI</a>
+            <a href="fan_projeleri.html">IMPACT</a>
+            <a href="konser_takvimi.html">TURNE</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="page-tag">OFFICIAL ARTIST WIKI</span>
+        <h1>MANIFEST</h1>
+        <p class="intro-text">
+            "Kaosun içindeki düzen, sessizliğin içindeki çığlık. Altı farklı ruh, tek bir manifesto."
+        </p>
+    </header>
+
+    <div class="stats-wrapper">
+        <div class="stat-card">
+            <span class="stat-num count" data-target="2025">0</span>
+            <span class="stat-lbl">DEBUT</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num count" data-target="485">0</span>
+            <span class="stat-lbl">MİLYON STREAM</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num count" data-target="6">0</span>
+            <span class="stat-lbl">ÜYE</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num count" data-target="14">0</span>
+            <span class="stat-lbl">ÖDÜL</span>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <h2 class="section-title">GRUP KİMLİĞİ</h2>
+        <div class="bio-grid reveal">
+            <div class="bio-card">
+                <h3>GENEL BİLGİLER</h3>
+                <div class="data-row"><span class="data-label">Menşei</span><span class="data-val">İstanbul, Türkiye</span></div>
+                <div class="data-row"><span class="data-label">Çıkış Tarihi</span><span class="data-val">7 Şubat 2025</span></div>
+                <div class="data-row"><span class="data-label">Şirket</span><span class="data-val">Hypers New Media</span></div>
+                <div class="data-row"><span class="data-label">Fandom</span><span class="data-val">Manifesto Ailesi</span></div>
+                <div class="data-row"><span class="data-label">Selamlama</span><span class="data-val">"Eyes on Us! We are Manifest!"</span></div>
+            </div>
+
+            <div class="bio-card">
+                <h3>BAŞARILAR & İSTATİSTİKLER</h3>
+                <div class="data-row"><span class="data-label">Spotify Aylık</span><span class="data-val">4.2 Milyon Dinleyici</span></div>
+                <div class="data-row"><span class="data-label">YouTube Abone</span><span class="data-val">1.8 Milyon</span></div>
+                <div class="data-row"><span class="data-label">En Çok İzlenen</span><span class="data-val">"Zamansızdık" (85M)</span></div>
+                <div class="data-row"><span class="data-label">Ödüller</span><span class="data-val">Altın Kelebek "En İyi Çıkış"</span></div>
+                <div class="data-row"><span class="data-label">Global</span><span class="data-val">Billboard Global Excl. US (#88)</span></div>
+            </div>
+
+            <div class="bio-card">
+                <h3>LORE & KONSEPT</h3>
+                <div class="data-row"><span class="data-label">Evren</span><span class="data-val">Cyber-Dystopia</span></div>
+                <div class="data-row"><span class="data-label">Renkler</span><span class="data-val">Neon Pink & Void Black</span></div>
+                <div class="data-row"><span class="data-label">Sembol</span><span class="data-val">Kırık Prizma</span></div>
+                <div class="data-row"><span class="data-label">7. Üye Teorisi</span><span class="data-val">Fanları temsil eden 'Turuncu' ışık.</span></div>
+            </div>
+        </div>
+
+        <h2 class="section-title">ÜYE DETAYLARI</h2>
+        <div class="members-grid reveal">
+
+            <div class="member-card color-hilal">
+                <div class="member-header">
+                    <span class="m-name">HİLAL</span>
+                    <span class="m-role">MAIN DANCER</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">4 Yıl (En Uzun)</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Vokal Tipi</span><span class="ms-val">Mezzo-Soprano</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">INTJ / Boğa</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Eğitim</span><span class="ms-val">İTÜ Bilgisayar</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Grubun tüm dans koreografilerini yönetir.</li>
+                        <li><i class="fas fa-star"></i> Sahne dışında kodlama yaparak dinlenir.</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: 👾 (Alien)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="member-card color-esin">
+                <div class="member-header">
+                    <span class="m-name">ESİN</span>
+                    <span class="m-role">LEAD VOCAL</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">3 Yıl</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Vokal Tipi</span><span class="ms-val">Light Soprano</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">ENFP / Yay</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Eğitim</span><span class="ms-val">Psikoloji</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Grubun "Mood Maker"ı ve neşe kaynağıdır.</li>
+                        <li><i class="fas fa-star"></i> 4 Dil konuşur (TR, ENG, FR, KR).</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: ☀️ (Güneş)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="member-card color-lidya">
+                <div class="member-header">
+                    <span class="m-name">LİDYA</span>
+                    <span class="m-role">MAIN RAPPER</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">2.5 Yıl</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Vokal Tipi</span><span class="ms-val">Contralto</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">ENTJ / Akrep</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Eğitim</span><span class="ms-val">Rus Dili Edb.</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Şarkı sözlerinin %90'ını kendisi yazar.</li>
+                        <li><i class="fas fa-star"></i> Grubun en sert ve maskülen tarzına sahip.</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: 🦂 (Akrep)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="member-card color-mina">
+                <div class="member-header">
+                    <span class="m-name">MİNA</span>
+                    <span class="m-role">VISUAL / FACE</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">2 Yıl</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Marka Yüzü</span><span class="ms-val">YSL Beauty</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">INFP / Balık</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Eğitim</span><span class="ms-val">Sanat Yönetimi</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Grubun moda ikonudur, stilistlere yön verir.</li>
+                        <li><i class="fas fa-star"></i> Klasik piyano ve yan flüt çalar.</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: 🦢 (Kuğu)</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="member-card color-sueda">
+                <div class="member-header">
+                    <span class="m-name">SUEDA</span>
+                    <span class="m-role">CENTER / DANCER</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">3.5 Yıl</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Uzmanlık</span><span class="ms-val">Waacking/Vogue</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">ESFP / Aslan</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Eğitim</span><span class="ms-val">İletişim Tas.</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Sahne duruşu (Stage Presence) en yüksek üye.</li>
+                        <li><i class="fas fa-star"></i> Profesyonel eski jimnastikçi.</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: 🦁 (Aslan)</li>
+                    </ul>
+                </div>
+            </div>
+
+             <div class="member-card color-zeynep">
+                <div class="member-header">
+                    <span class="m-name">ZEYNEP</span>
+                    <span class="m-role">LEAD VOCAL</span>
+                </div>
+                <div class="m-body">
+                    <div class="m-stats">
+                        <div class="m-stat-box"><span class="ms-label">Staj Süresi</span><span class="ms-val">2.5 Yıl</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Vokal Tipi</span><span class="ms-val">Dramatic Soprano</span></div>
+                        <div class="m-stat-box"><span class="ms-label">MBTI / Burç</span><span class="ms-val">ENFJ / Terazi</span></div>
+                        <div class="m-stat-box"><span class="ms-label">Görev</span><span class="ms-val">Sözcü (Speaker)</span></div>
+                    </div>
+                    <ul class="m-facts">
+                        <li><i class="fas fa-star"></i> Röportajlarda grubu temsil eder.</li>
+                        <li><i class="fas fa-star"></i> High Note (Yüksek Nota) kraliçesidir.</li>
+                        <li><i class="fas fa-star"></i> Temsili Emoji: 🌊 (Dalga)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="section-title" style="margin-top:80px;">RESMİ DİSKOGRAFİ</h2>
+        <div style="overflow-x:auto;" class="reveal">
+            <table class="disco-table">
+                <thead>
+                    <tr>
+                        <th>YIL</th>
+                        <th>TÜR</th>
+                        <th>BAŞLIK</th>
+                        <th>PARÇA LİSTESİ</th>
+                        <th>YAPIMCI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025</td>
+                        <td>Single</td>
+                        <td style="color:white; font-weight:bold;">ZAMANSIZDIK (Debut)</td>
+                        <td>1. Zamansızdık (3:45)<br>2. Zamansızdık (Inst.)</td>
+                        <td>Tolga Akış</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>EP (Mini Albüm)</td>
+                        <td style="color:white; font-weight:bold;">MANIFESTIVAL</td>
+                        <td>
+                            1. Intro: Awakening<br>
+                            2. Rüya (Title)<br>
+                            3. Zehir<br>
+                            4. Ariyo<br>
+                            5. Outro: Eclipse
+                        </td>
+                        <td>Hypers Team</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>Single</td>
+                        <td style="color:var(--accent); font-weight:bold;">BUZ (Upcoming)</td>
+                        <td>1. BUZ<br>2. BUZ (Sped Up Ver.)</td>
+                        <td>Aras Özgür</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="crisis-panel reveal">
+            <div class="crisis-title">
+                <i class="fas fa-siren-on"></i> KRİZ YÖNETİMİ & HUKUKİ SÜREÇ (GÜNCEL)
+            </div>
+            <div class="bio-grid" style="margin-bottom:0; gap:20px; grid-template-columns: 1fr 1fr;">
+                <div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">DOSYA NO</span><span class="data-val">2025/1453-B (İstanbul)</span></div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">OLAY</span><span class="data-val">Beşiktaş Stadyum Konseri</span></div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">SUÇLAMA</span><span class="data-val">"Hayasızca Hareketler" (TCK 225)</span></div>
+                </div>
+                <div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">DURUM</span><span class="data-val">Dava Süreci Devam Ediyor</span></div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">SAVUNMA</span><span class="data-val">"Koreografi sanattır, suç değildir."</span></div>
+                    <div class="data-row"><span class="data-label" style="color:var(--danger)">DESTEK</span><span class="data-val">45 STK ve Sanatçılar Birliği</span></div>
+                </div>
+            </div>
+            <p style="margin-top:20px; font-size:0.85rem; color:#777;">*Not: Yurt dışı çıkış yasakları itiraz sonucu kaldırılmıştır.</p>
+        </div>
+
+        <h2 class="section-title">FANDOM SÖZLÜĞÜ & TRIVIA</h2>
+        <div class="bio-card reveal">
+             <ul style="list-style:none; font-size:0.95rem; color:#ccc; line-height:2;">
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>"Şarjım Azaldı":</strong> Grup içinde "Yorgunum" demek yasaktır, bu kod kullanılır.</li>
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>Midye Partisi:</strong> Her büyük konser sonrası kuliste midye dolma yeme ritüeli.</li>
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>Turuncu Işık:</strong> Lore hikayesinde 7. renk olan Turuncu, fanları (Manifestos) temsil eder.</li>
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>AI Analizi:</strong> Hilal, grubun dans senkronizasyonunu ölçmek için özel bir Python kodu yazmıştır.</li>
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>Sinema Teklifi:</strong> 2026 yapımı bir Türk aksiyon filmi için "Amazon Savaşçıları" rolü teklif edilmiştir.</li>
+                <li><i class="fas fa-caret-right" style="color:var(--accent)"></i> <strong>Dil Yeteneği:</strong> Grup toplamda Türkçe, İngilizce, Rusça, Fransızca ve Korece konuşmaktadır.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-social">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-youtube"></i>
+            <i class="fab fa-spotify"></i>
+            <i class="fab fa-tiktok"></i>
+        </div>
+        <p class="copyright">© 2025 MANIFEST ENTERTAINMENT. ALL RIGHTS RESERVED. | DATABASE V3.0</p>
+    </footer>
+
+    <script>
+        /* --- 1. SCROLL REVEAL ANIMATION --- */
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+
+            // Reveal Elements
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        /* --- 2. AUTO STATS COUNTER --- */
+        const stats = document.querySelectorAll('.count');
+        const statsContainer = document.querySelector('.stats-wrapper');
+        let counted = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting && !counted) {
+                    stats.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const inc = target / 100;
+                        const update = () => {
+                            const c = +counter.innerText;
+                            if(c < target) {
+                                counter.innerText = Math.ceil(c + inc);
+                                setTimeout(update, 20);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        update();
+                    });
+                    counted = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if(statsContainer) observer.observe(statsContainer);
+    </script>
+
+</body>
+</html>

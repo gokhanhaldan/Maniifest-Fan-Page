@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MANIFEST IMPACT | Global Charity & Fan Movement</title>
+    <meta name="description" content="Manifest Grubu Resmi Sosyal Sorumluluk Projeleri, Global Fan Etkinlikleri ve Şeffaflık Raporları.">
+    <meta name="theme-color" content="#ff0055">
+
+    <link rel="icon" type="image/png" href="pictures/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&family=Syncopate:wght@400;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CORE SYSTEM & VARIABLES
+           ========================================= */
+        :root {
+            --primary: #ff0055;       /* Neon Pink */
+            --primary-dark: #8a002d;
+            --primary-glow: rgba(255, 0, 85, 0.6);
+            
+            --secondary: #7000ff;     /* Cyber Purple */
+            --accent: #00f2ff;        /* Electric Cyan */
+            --gold: #ffd700;          /* Luxury Gold */
+            --success: #00ff9d;       /* Matrix Green */
+            
+            --bg-dark: #050505;
+            --bg-panel: #0a0a0a;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            
+            --font-main: 'Montserrat', sans-serif;
+            --font-header: 'Syncopate', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+            --font-data: 'Rajdhani', sans-serif;
+            
+            --glass: blur(10px) saturate(180%);
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        ::selection { background: var(--primary); color: white; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* =========================================
+           2. ANIMATIONS & UTILITIES
+           ========================================= */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s var(--ease-out); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @keyframes glitch { 
+            0% { transform: translate(0); } 
+            20% { transform: translate(-2px, 2px); } 
+            40% { transform: translate(-2px, -2px); } 
+            60% { transform: translate(2px, 2px); } 
+            80% { transform: translate(2px, -2px); } 
+            100% { transform: translate(0); } 
+        }
+        
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* =========================================
+           3. NAVIGATION
+           ========================================= */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.4s;
+        }
+        nav.scrolled { padding: 15px 5%; background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--primary); }
+
+        .logo { font-family: var(--font-header); font-weight: 900; font-size: 1.8rem; letter-spacing: -2px; color: white; }
+        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+
+        .nav-menu { display: flex; gap: 40px; }
+        .nav-link { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #bbb; position: relative; padding: 5px 0; }
+        .nav-link::before { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--primary); transition: 0.3s; box-shadow: 0 0 10px var(--primary); }
+        .nav-link:hover, .nav-link.active { color: white; }
+        .nav-link:hover::before, .nav-link.active::before { width: 100%; }
+
+        .menu-toggle { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        /* =========================================
+           4. HERO SECTION
+           ========================================= */
+        header.impact-hero {
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background: radial-gradient(circle at center, #1a050a 0%, #000000 70%);
+            padding-top: 80px;
+        }
+        
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-content { text-align: center; z-index: 2; padding: 0 20px; max-width: 1200px; }
+        
+        .hero-tag {
+            display: inline-block; padding: 8px 20px; margin-bottom: 25px;
+            border: 1px solid var(--accent); color: var(--accent);
+            font-family: var(--font-tech); font-size: 0.8rem; letter-spacing: 4px;
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        h1.glitch-title {
+            font-family: var(--font-header); font-size: 5rem; line-height: 0.9;
+            text-transform: uppercase; font-weight: 700; margin-bottom: 30px;
+            color: white; text-shadow: 4px 4px 0px #333; position: relative;
+        }
+        h1.glitch-title::before {
+            content: 'IMPACT REPORT'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            color: var(--primary); z-index: -1; opacity: 0.7; animation: glitch 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem; color: #ccc; max-width: 700px; margin: 0 auto 50px;
+            font-weight: 300; border-left: 3px solid var(--primary); padding-left: 20px; text-align: left;
+        }
+
+        /* NEWS TICKER (Updated: Moved Higher) */
+        .ticker-wrap {
+            position: absolute; 
+            bottom: 220px; /* Yukar tand */
+            left: 0; width: 100%; overflow: hidden;
+            background: var(--primary); color: white; padding: 8px 0;
+            transform: rotate(-2deg) scale(1.05); box-shadow: 0 0 20px var(--primary);
+            z-index: 15; /* Z-index artrld */
+        }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 30s linear infinite; }
+        .ticker-item { padding: 0 50px; font-family: var(--font-header); font-weight: bold; letter-spacing: 2px; font-size: 0.9rem; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Stats Deck */
+        .stats-deck {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; justify-content: space-evenly; padding: 30px 0; z-index: 11;
+        }
+        .stat-box { text-align: center; position: relative; }
+        .stat-val { font-family: var(--font-tech); font-size: 2.5rem; font-weight: 700; color: white; display: block; }
+        .stat-lbl { font-family: var(--font-data); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); }
+
+        /* =========================================
+           5. FIXED MAP SECTION (PROFESSIONAL)
+           ========================================= */
+        .map-wrapper {
+            background: #050505; padding: 100px 0; position: relative;
+            border-bottom: 1px solid #111;
+        }
+        
+        .map-container {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            /* Aspect Ratio 2:1 */
+            padding-bottom: 45.3%; 
+            background-color: #080808;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px; /* Tech Grid Effect */
+        }
+
+        .world-map-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; 
+            filter: invert(1) grayscale(1) brightness(0.5) contrast(1.2); 
+            opacity: 0.5;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transform: translate(-50%, -50%);
+            transition: 0.3s;
+        }
+        
+        .hotspot::before, .hotspot::after {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; border: 1px solid var(--primary);
+            opacity: 0;
+        }
+        .hotspot::before { width: 20px; height: 20px; animation: pulse 2s infinite; }
+        .hotspot::after { width: 40px; height: 40px; animation: pulse 2s 0.5s infinite; }
+        
+        @keyframes pulse { 0% { width: 0; height: 0; opacity: 0.8; } 100% { width: 60px; height: 60px; opacity: 0; } }
+
+        .hotspot:hover { background: white; z-index: 100; box-shadow: 0 0 20px white; }
+
+        /* Coordinates (Calibrated for Equirectangular Projection) */
+        .loc-ist { top: 33%; left: 56%; }   /* Istanbul */
+        .loc-ny { top: 33%; left: 28%; }    /* New York */
+        .loc-la { top: 36%; left: 17%; }    /* Los Angeles */
+        .loc-lon { top: 26%; left: 49%; }   /* London */
+        .loc-ber { top: 25%; left: 52%; }   /* Berlin */
+        .loc-tok { top: 35%; left: 88%; }   /* Tokyo */
+        .loc-rio { top: 75%; left: 33%; }   /* Rio */
+        .loc-syd { top: 80%; left: 91%; }   /* Sydney */
+
+        .tooltip {
+            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: rgba(0,0,0,0.95); border: 1px solid var(--primary);
+            width: 200px; padding: 15px;
+            opacity: 0; visibility: hidden; transition: 0.3s; pointer-events: none;
+            z-index: 20; box-shadow: 0 10px 30px black;
+        }
+        .hotspot:hover .tooltip { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        
+        .tt-head { color: var(--primary); font-family: var(--font-header); font-size: 0.9rem; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 5px; display: block; }
+        .tt-row { display: flex; justify-content: space-between; font-family: var(--font-data); font-size: 0.8rem; color: #ccc; }
+
+        /* =========================================
+           6. PROJECT GRID (4x3 Layout)
+           ========================================= */
+        .section { padding: 120px 5%; position: relative; }
+        .sec-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; border-bottom: 1px solid #222; padding-bottom: 20px; flex-wrap: wrap; gap: 20px; }
+        .sec-title { font-family: var(--font-header); font-size: 2.5rem; color: white; }
+        .sec-title span { color: var(--primary); }
+
+        .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+        .tab-btn {
+            background: transparent; border: 1px solid #333; color: #888;
+            padding: 10px 25px; cursor: pointer; font-family: var(--font-tech);
+            text-transform: uppercase; transition: 0.3s; font-weight: 600;
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+
+        /* Grid Update: Responsive 4 columns */
+        .grid-container { 
+            display: grid; 
+            gap: 30px; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Mobilde esnek */
+        }
+
+        /* Large screens: Force 4 columns */
+        @media (min-width: 1400px) {
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .p-card {
+            background: var(--bg-panel); border: 1px solid #222;
+            display: flex; flex-direction: column; position: relative;
+            overflow: hidden; transition: all 0.4s var(--ease-out);
+            height: 100%;
+        }
+        .p-card:hover { transform: translateY(-10px); border-color: var(--card-color, var(--primary)); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+
+        .p-thumb { height: 200px; position: relative; overflow: hidden; }
+        .p-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: grayscale(100%); }
+        .p-card:hover .p-thumb img { transform: scale(1.1); filter: grayscale(0%); }
+        
+        .p-status {
+            position: absolute; top: 15px; left: 15px; padding: 4px 12px; font-size: 0.7rem; font-weight: 800;
+            font-family: var(--font-tech); color: #000; text-transform: uppercase; z-index: 2;
+        }
+
+        .p-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .p-title { font-family: var(--font-header); font-size: 1rem; margin: 10px 0; line-height: 1.3; font-weight: 700; }
+        .p-desc { font-size: 0.85rem; color: #888; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+
+        .prog-container { margin-bottom: 20px; }
+        .prog-text { display: flex; justify-content: space-between; font-size: 0.75rem; color: white; margin-bottom: 5px; font-family: var(--font-tech); }
+        .prog-bg { width: 100%; height: 4px; background: #222; }
+        .prog-bar { height: 100%; background: var(--card-color, var(--primary)); transition: width 1s; }
+
+        .p-action {
+            padding: 15px; text-align: center; background: rgba(255,255,255,0.03);
+            border-top: 1px solid #222; font-size: 0.8rem; font-weight: 700;
+            color: var(--card-color, white); cursor: pointer; transition: 0.3s; font-family: var(--font-header);
+        }
+        .p-action:hover { background: var(--card-color, var(--primary)); color: black; letter-spacing: 1px; }
+
+        /* Dynamic Colors */
+        .card-active { --card-color: var(--success); }
+        .card-completed { --card-color: var(--gold); }
+        .card-upcoming { --card-color: var(--accent); }
+
+        /* =========================================
+           7. TIMELINE SECTION
+           ========================================= */
+        .timeline-section { background: #080808; padding: 100px 5%; position: relative; }
+        .timeline-line {
+            position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex; justify-content: center; padding-bottom: 60px; position: relative;
+        }
+        .tl-content {
+            width: 45%; background: #111; padding: 30px; border: 1px solid #333; position: relative;
+        }
+        .tl-content::before {
+            content: ''; position: absolute; top: 20px; width: 20px; height: 1px; background: var(--primary);
+        }
+        .timeline-item:nth-child(odd) .tl-content { margin-right: auto; text-align: right; }
+        .timeline-item:nth-child(odd) .tl-content::before { right: -20px; }
+        
+        .timeline-item:nth-child(even) .tl-content { margin-left: auto; text-align: left; }
+        .timeline-item:nth-child(even) .tl-content::before { left: -20px; }
+
+        .tl-date { color: var(--primary); font-family: var(--font-tech); font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .tl-head { font-family: var(--font-header); font-size: 1.2rem; color: white; margin-bottom: 10px; }
+
+        /* =========================================
+           8. FINANCIAL TABLE & DONORS
+           ========================================= */
+        .report-section { background: #050505; border-top: 1px solid #222; }
+        
+        .table-wrap {
+            background: rgba(20, 20, 20, 0.5); border: 1px solid #333;
+            overflow-x: auto; 
+        }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { text-align: left; padding: 20px; background: #111; color: var(--gold); border-bottom: 2px solid var(--gold); font-family: var(--font-tech); font-size: 0.8rem; }
+        td { padding: 20px; border-bottom: 1px solid #222; font-size: 0.9rem; font-family: var(--font-data); }
+        tr:hover td { background: rgba(255,255,255,0.02); color: white; }
+        
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .sb-success { background: rgba(0, 255, 157, 0.1); color: var(--success); border: 1px solid var(--success); }
+        .sb-progress { background: rgba(0, 242, 255, 0.1); color: var(--accent); border: 1px solid var(--accent); }
+
+        .hall-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 50px; }
+        .donor-card { background: #111; padding: 20px; text-align: center; border: 1px solid #333; transition: 0.3s; }
+        .donor-card:hover { border-color: var(--gold); transform: scale(1.05); }
+        .d-rank { color: var(--gold); font-size: 1.5rem; font-weight: bold; font-family: var(--font-header); display: block; margin-bottom: 5px; }
+        .d-name { color: white; font-family: var(--font-main); font-weight: 600; }
+        .d-amt { color: #888; font-size: 0.8rem; margin-top: 5px; display: block; }
+
+        /* =========================================
+           9. CONTACT FORM
+           ========================================= */
+        .form-section {
+            padding: 100px 5%; background: linear-gradient(45deg, #050505 0%, #110005 100%);
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        }
+        .form-visual h2 { font-family: var(--font-header); font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
+        .form-box { background: rgba(255,255,255,0.03); padding: 40px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        
+        .input-group { margin-bottom: 20px; }
+        .input-label { display: block; font-size: 0.7rem; font-family: var(--font-tech); color: var(--primary); margin-bottom: 8px; }
+        .form-input {
+            width: 100%; background: #080808; border: 1px solid #333; padding: 15px;
+            color: white; font-family: var(--font-main); transition: 0.3s;
+        }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255,0,85,0.2); }
+        
+        .btn-submit {
+            width: 100%; padding: 15px; background: white; border: none;
+            font-family: var(--font-header); font-weight: 900; font-size: 1rem;
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-submit:hover { background: var(--primary); color: white; letter-spacing: 2px; }
+
+        /* Footer */
+        footer { background: black; border-top: 1px solid #222; padding: 40px; text-align: center; color: #555; font-size: 0.8rem; }
+
+        /* Responsive Media Queries */
+        @media (max-width: 1024px) {
+            h1.glitch-title { font-size: 3.5rem; }
+            .form-section { grid-template-columns: 1fr; }
+            .timeline-line { left: 20px; }
+            .timeline-item { flex-direction: column; padding-left: 50px; text-align: left !important; }
+            .tl-content { width: 100%; margin: 0 !important; }
+            .timeline-item:nth-child(odd) .tl-content::before,
+            .timeline-item:nth-child(even) .tl-content::before { left: -30px; width: 30px; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu { display: none; } 
+            .menu-toggle { display: block; }
+            .stats-deck { flex-wrap: wrap; position: relative; bottom: auto; }
+            .stat-box { width: 50%; margin-bottom: 20px; }
+            .sec-title { font-size: 2rem; }
+            .ticker-wrap { bottom: 20px; transform: rotate(0); }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:0.5s;">
+        <div style="font-family: 'Syncopate'; font-weight:900; font-size:2rem; color:white; margin-bottom:10px; text-align:center;">
+            <span style="color:#ff0055">M</span>ANIFEST
+        </div>
+        <div style="width:150px; height:2px; background:#222; position:relative;">
+            <div id="load-bar" style="width:0%; height:100%; background:#ff0055; transition: width 0.1s;"></div>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">MANI<span>I</span>FEST</a>
+        <div class="nav-menu">
+            <a href="#" class="nav-link">ANA SAYFA</a>
+            <a href="#" class="nav-link">ÜYELER</a>
+            <a href="#" class="nav-link active">IMPACT</a>
+            <a href="#" class="nav-link">TURNE</a>
+        </div>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <header class="impact-hero">
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content reveal">
+            <span class="hero-tag">OFFICIAL REPORT 2025</span>
+            <h1 class="glitch-title">CHANGE THE WORLD</h1>
+            <p class="hero-desc">
+                Manifest sadece bir müzik grubu değil, global bir iyilik hareketidir. 
+                Hayranlarımızla birlikte ormanlar kuruyor, okullar açıyor ve rekorlar kırıyoruz.
+            </p>
+        </div>
+
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <div class="ticker-item">★ LÖSEV BAĞIŞI TAMAMLANDI</div>
+                <div class="ticker-item">★ TIMES SQUARE REKLAMI İÇİN SON 3 GÜN</div>
+                <div class="ticker-item">★ VAN KÜTÜPHANE PROJESİ %75</div>
+                <div class="ticker-item">★ YENİ SINGLE 'BUZ' 10M STREAM'E ULAŞTI</div>
+                <div class="ticker-item">★ MİNA SAĞLIK TARAMASI FONU AÇILDI</div>
+                <div class="ticker-item">★ LÖSEV BAĞIŞI TAMAMLANDI</div>
+                <div class="ticker-item">★ TIMES SQUARE REKLAMI İÇİN SON 3 GÜN</div>
+            </div>
+        </div>
+
+        <div class="stats-deck">
+            <div class="stat-box">
+                <span class="stat-val" style="color:var(--gold)">₺<span class="count" data-target="1450000">0</span></span>
+                <span class="stat-lbl">TOPLANAN BAĞIŞ</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-val"><span class="count" data-target="6200">0</span></span>
+                <span class="stat-lbl">FİDAN DİKİMİ</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-val"><span class="count" data-target="28">0</span></span>
+                <span class="stat-lbl">ÜLKE</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-val" style="color:var(--success)"><span class="count" data-target="14">0</span></span>
+                <span class="stat-lbl">AKTİF PROJE</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="sec-header reveal">
+            <h2 class="sec-title">GLOBAL <span>PROJELER</span></h2>
+            <div class="filter-tabs">
+                <button class="tab-btn active" onclick="filterProjects('all')">HEPSİ</button>
+                <button class="tab-btn" onclick="filterProjects('active')">AKTİF</button>
+                <button class="tab-btn" onclick="filterProjects('completed')">TAMAMLANAN</button>
+                <button class="tab-btn" onclick="filterProjects('upcoming')">YAKINDA</button>
+            </div>
+        </div>
+
+        <div class="grid-container reveal">
+            
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">DEVAM EDİYOR</span>
+                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80" alt="Women">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">MOR ÇATI DAYANIŞMASI</div>
+                    <p class="p-desc">Kadın sığınma evlerindeki şiddet mağduru kadınlar ve çocukları için hijyen kiti desteği.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺67.500 / ₺150.000</span><span>%45</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:45%"></div></div>
+                    </div>
+                    <a href="https://morcati.org.tr/bagis-yap/" target="_blank" class="p-action">BAĞIŞ YAP</a>
+                </div>
+            </div>
+
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">EĞİTİM</span>
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80" alt="Education">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">TEGV EĞİTİM DESTEĞİ</div>
+                    <p class="p-desc">Çocuklarımızın nitelikli eğitim desteği alması için TEGV ile ortak çalışma.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>35 / 50 Öğrenci</span><span>%70</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:70%"></div></div>
+                    </div>
+                    <a href="https://tegv.org/bagis/" target="_blank" class="p-action">DESTEK OL</a>
+                </div>
+            </div>
+
+            <div class="p-card card-completed" data-cat="completed">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--gold)">TAMAMLANDI</span>
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80" alt="Forest">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">TEMA: SUEDA ORMANI</div>
+                    <p class="p-desc">Sueda'nın doğum günü için TEMA Vakfı aracılığıyla 2000 fidanlık hatıra ormanı.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺120.000 Toplandı</span><span>BAŞARILI</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:100%"></div></div>
+                    </div>
+                    <a href="https://www.tema.org.tr/" target="_blank" class="p-action">SERTİFİKAYI GÖR</a>
+                </div>
+            </div>
+
+            <div class="p-card card-upcoming" data-cat="upcoming">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--accent); color:black">PLANLAMA</span>
+                    <img src="https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?auto=format&fit=crop&q=80" alt="NYC">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">TIMES SQUARE REKLAMI</div>
+                    <p class="p-desc">Grubun 1. yıldönümü şerefine New York Times Meydanı'nda 15 saniyelik video.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>$500 / $5.000</span><span>%10</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:10%"></div></div>
+                    </div>
+                    <div class="p-action">BEKLEMEDE</div>
+                </div>
+            </div>
+
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">SAĞLIK</span>
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80" alt="Health">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">LÖSEV UMUT FONU</div>
+                    <p class="p-desc">Lösemili çocuklarımız için tedavi ve moral desteği sağlayan özel fon.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺200.000 / ₺500.000</span><span>%40</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:40%"></div></div>
+                    </div>
+                    <a href="https://www.losev.org.tr/bagis" target="_blank" class="p-action">BAĞIŞ YAP</a>
+                </div>
+            </div>
+
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">HAYVANLAR</span>
+                    <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80" alt="Animals">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">WWF: EVLAT EDİNME</div>
+                    <p class="p-desc">Nesli tükenmekte olan hayvanlar için WWF Türkiye aracılığıyla sembolik evlat edinme.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>150 / 300 Hayvan</span><span>%50</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:50%"></div></div>
+                    </div>
+                    <a href="https://www.wwf.org.tr/bagis_yap/" target="_blank" class="p-action">DESTEK OL</a>
+                </div>
+            </div>
+
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">EĞİTİM</span>
+                    <img src="https://images.unsplash.com/photo-1529390003875-574295ef16cd?auto=format&fit=crop&q=80" alt="Library">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">KÖY OKULLARI KİTAPLIK</div>
+                    <p class="p-desc">Van'daki köy okulları için modern kütüphane ve kırtasiye malzemesi projesi.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺40.000 / ₺80.000</span><span>%50</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:50%"></div></div>
+                    </div>
+                    <a href="https://www.koyokullariyardimprojesi.org/" target="_blank" class="p-action">BAĞIŞ YAP</a>
+                </div>
+            </div>
+
+            <div class="p-card card-completed" data-cat="completed">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--gold)">TAMAMLANDI</span>
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80" alt="Hope">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">KAÇUV AİLE EVİ</div>
+                    <p class="p-desc">Kanserli çocukların ailelerinin konaklaması için KAÇUV'a oda donanım desteği.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺95.000 Toplandı</span><span>BAŞARILI</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:100%"></div></div>
+                    </div>
+                    <a href="https://www.kacuv.org/" target="_blank" class="p-action">RAPORU GÖR</a>
+                </div>
+            </div>
+
+            <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">ACİL YARDIM</span>
+                    <img src="https://images.unsplash.com/photo-1606636660801-c6d23156283a?auto=format&fit=crop&q=80" alt="Red Crescent">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">TÜRK KIZILAYI DESTEK</div>
+                    <p class="p-desc">Afet bölgeleri ve ihtiyaç sahipleri için gıda kolisi bağışı kampanyası.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺15.000 / ₺100.000</span><span>%15</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:15%"></div></div>
+                    </div>
+                    <a href="https://www.kizilay.org.tr/Bagis" target="_blank" class="p-action">BAĞIŞ YAP</a>
+                </div>
+            </div>
+
+            <div class="p-card card-upcoming" data-cat="upcoming">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--accent); color:black">YAKINDA</span>
+                    <img src="https://images.unsplash.com/photo-1516937941348-c09622421c41?auto=format&fit=crop&q=80" alt="Unicef">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">UNICEF GLOBAL</div>
+                    <p class="p-desc">Dünya genelindeki çocuklar için "Her Çocuk İçin Eğitim" projesine global katılım.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>PLANLANIYOR</span><span>%0</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:0%"></div></div>
+                    </div>
+                    <div class="p-action">EKİM 2025</div>
+                </div>
+            </div>
+
+             <div class="p-card card-active" data-cat="active">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--success)">SOKAK CANLARI</span>
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&q=80" alt="Dogs">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">HAÇİKO MAMA DESTEĞİ</div>
+                    <p class="p-desc">Sokak hayvanları ve orman beslemeleri için HAÇİKO derneğine mama yardımı.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>500 / 1000 KG</span><span>%50</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:50%"></div></div>
+                    </div>
+                    <a href="https://haciko.org.tr/" target="_blank" class="p-action">MAMA GÖNDER</a>
+                </div>
+            </div>
+
+             <div class="p-card card-completed" data-cat="completed">
+                <div class="p-thumb">
+                    <span class="p-status" style="background:var(--gold)">TAMAMLANDI</span>
+                    <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?auto=format&fit=crop&q=80" alt="Darüşşafaka">
+                </div>
+                <div class="p-body">
+                    <div class="p-title">DARÜŞŞAFAKA BAĞIŞI</div>
+                    <p class="p-desc">"Eğitimde Fırsat Eşitliği" kapsamında bir öğrencinin yıllık eğitim masrafı karşılandı.</p>
+                    <div class="prog-container">
+                        <div class="prog-text"><span>₺45.000 Toplandı</span><span>BAŞARILI</span></div>
+                        <div class="prog-bg"><div class="prog-bar" style="width:100%"></div></div>
+                    </div>
+                    <a href="https://www.darussafaka.org/bagis" target="_blank" class="p-action">DETAYLAR</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+<section class="map-wrapper reveal">
+        <div class="sec-header" style="justify-content:center; border:none; flex-direction: column; align-items: center;">
+            <h2 class="sec-title">GLOBAL <span>ETKİ ALANI</span></h2>
+            <p style="color:#888; text-align:center;">Manifesto Ailesi'nin dünyanın dört bir yanındaki kaleleri.</p>
+        </div>
+
+        <div class="map-container" style="background: #111; border: 1px solid #333;">
+            <img class="world-map-img" 
+                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" 
+                 alt="World Map"
+                 style="opacity: 0.4; filter: invert(1); width: 100%; height: 100%; object-fit: fill;">
+
+            <div class="hotspot" style="top: 34%; left: 56%;">
+                <div class="tooltip">
+                    <span class="tt-head">İSTANBUL, TR</span>
+                    <div class="tt-row"><span>Üye:</span> <span>120,000+</span></div>
+                    <div class="tt-row"><span>Durum:</span> <span style="color:var(--success)">Merkez Üs</span></div>
+                </div>
+            </div>
+
+            <div class="hotspot" style="top: 35%; left: 28%;">
+                <div class="tooltip">
+                    <span class="tt-head">NEW YORK, USA</span>
+                    <div class="tt-row"><span>Üye:</span> <span>12,400</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Times Square</span></div>
+                </div>
+            </div>
+            
+            <div class="hotspot" style="top: 38%; left: 16%;">
+                <div class="tooltip">
+                    <span class="tt-head">LOS ANGELES, USA</span>
+                    <div class="tt-row"><span>Üye:</span> <span>8,200</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Coachella</span></div>
+                </div>
+            </div>
+
+            <div class="hotspot" style="top: 27%; left: 49%;">
+                <div class="tooltip">
+                    <span class="tt-head">LONDON, UK</span>
+                    <div class="tt-row"><span>Üye:</span> <span>15,600</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Subway Ad</span></div>
+                </div>
+            </div>
+
+            <div class="hotspot" style="top: 28%; left: 52%;">
+                <div class="tooltip">
+                    <span class="tt-head">BERLIN, DE</span>
+                    <div class="tt-row"><span>Üye:</span> <span>9,800</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Dance WS</span></div>
+                </div>
+            </div>
+            
+            <div class="hotspot" style="top: 38%; left: 88%;">
+                <div class="tooltip">
+                    <span class="tt-head">TOKYO, JP</span>
+                    <div class="tt-row"><span>Üye:</span> <span>5,100</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Billboard</span></div>
+                </div>
+            </div>
+            
+            <div class="hotspot" style="top: 75%; left: 33%;">
+                <div class="tooltip">
+                    <span class="tt-head">RIO, BR</span>
+                    <div class="tt-row"><span>Üye:</span> <span>11,000</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Street Art</span></div>
+                </div>
+            </div>
+
+            <div class="hotspot" style="top: 80%; left: 92%;">
+                <div class="tooltip">
+                    <span class="tt-head">SYDNEY, AU</span>
+                    <div class="tt-row"><span>Üye:</span> <span>4,200</span></div>
+                    <div class="tt-row"><span>Proje:</span> <span>Opera House</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section reveal">
+        <div class="sec-header">
+            <h2 class="sec-title">ETKİ <span>TARİHÇESİ</span></h2>
+        </div>
+        <div class="timeline-line"></div>
+        
+        <div class="timeline-item">
+            <div class="tl-content">
+                <span class="tl-date">15 MAYIS 2024</span>
+                <h3 class="tl-head">KURULUŞ</h3>
+                <p style="color:#888; font-size:0.9rem;">Manifesto Fan Kulübü resmi olarak kuruldu ve ilk tüzüğünü yayınladı.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="tl-content">
+                <span class="tl-date">20 AĞUSTOS 2024</span>
+                <h3 class="tl-head">İLK GLOBAL BAĞIŞ</h3>
+                <p style="color:#888; font-size:0.9rem;">"Denizler Temiz Kalsın" projesi için 5 ülkeden ortak fon oluşturuldu.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="tl-content">
+                <span class="tl-date">14 ŞUBAT 2025</span>
+                <h3 class="tl-head">LÖSEV REKORU</h3>
+                <p style="color:#888; font-size:0.9rem;">Sadece 24 saat içinde 85.000 TL bağış toplanarak rekor kırıldı.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="report-section reveal">
+        <div class="section">
+            <div class="sec-header">
+                <h2 class="sec-title">FİNANSAL <span>RAPOR</span></h2>
+                <p style="color:#888;">Şeffaflık ilkemiz gereği son 6 ayın dökümü.</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PROJE ADI</th>
+                            <th>ORGANİZATÖR</th>
+                            <th>TARİH</th>
+                            <th>HEDEF</th>
+                            <th>DURUM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sueda Hatıra Ormanı</td>
+                            <td>Manifesto TR Official</td>
+                            <td>15 Mayıs 2025</td>
+                            <td>₺120.000</td>
+                            <td><span class="status-badge sb-success">TAMAMLANDI</span></td>
+                        </tr>
+                        <tr>
+                            <td>LÖSEV Koli Bağışı</td>
+                            <td>Mina Global Team</td>
+                            <td>14 Şubat 2025</td>
+                            <td>₺85.000</td>
+                            <td><span class="status-badge sb-success">TAMAMLANDI</span></td>
+                        </tr>
+                        <tr>
+                            <td>Van Kütüphane</td>
+                            <td>Zeynep Support Squad</td>
+                            <td>Devam Ediyor</td>
+                            <td>₺80.000</td>
+                            <td><span class="status-badge sb-progress">YÜZDE 75</span></td>
+                        </tr>
+                        <tr>
+                            <td>Patili Dostlar Mama</td>
+                            <td>Hilal Stan</td>
+                            <td>4 Nisan 2025</td>
+                            <td>₺45.000</td>
+                            <td><span class="status-badge sb-success">TAMAMLANDI</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sec-header" style="margin-top:80px;">
+                <h3 class="sec-title" style="font-size:1.8rem;">TOP <span>BAĞIŞÇILAR</span></h3>
+            </div>
+            <div class="hall-grid">
+                <div class="donor-card">
+                    <span class="d-rank">#1</span>
+                    <span class="d-name">Gökhan Haldan</span>
+                    <span class="d-amt">₺50.000+</span>
+                </div>
+                <div class="donor-card">
+                    <span class="d-rank">#2</span>
+                    <span class="d-name">Manifesto İzmir</span>
+                    <span class="d-amt">₺32.000+</span>
+                </div>
+                <div class="donor-card">
+                    <span class="d-rank">#3</span>
+                    <span class="d-name">Eda Özbey</span>
+                    <span class="d-amt">₺28.000+</span>
+                </div>
+                <div class="donor-card">
+                    <span class="d-rank">#4</span>
+                    <span class="d-name">Baku Fan Club</span>
+                    <span class="d-amt">₺15.000+</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="form-section">
+        <div class="form-visual reveal">
+            <h2>BİR FİKRİN Mİ VAR?<br><span style="color:var(--primary)">BİZİMLE PAYLAŞ.</span></h2>
+            <p style="color:#aaa; margin-bottom:30px;">
+                Manifesto Ailesi olarak her zaman yeni ve çılgın fikirlere açığız. 
+                Grubumuzu mutlu edecek veya dünyaya fayda sağlayacak bir projen varsa, 
+                yönetim ekibimizle doğrudan iletişime geç.
+            </p>
+            <div style="display:flex; gap:20px; color:#888;">
+                <i class="fab fa-instagram fa-2x" style="cursor:pointer; hover:color:white"></i>
+                <i class="fab fa-twitter fa-2x" style="cursor:pointer;"></i>
+                <i class="fab fa-discord fa-2x" style="cursor:pointer;"></i>
+            </div>
+        </div>
+
+        <div class="form-box reveal">
+            <form id="projectForm">
+                <div class="input-group">
+                    <label class="input-label">ADIN SOYADIN</label>
+                    <input type="text" class="form-input" id="name" placeholder="Örn: Gökhan Haldan" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">E-POSTA ADRESİN</label>
+                    <input type="email" class="form-input" id="email" placeholder="iletisim@ornek.com" required>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">PROJE TİPİ</label>
+                    <select class="form-input" id="category" style="background:#080808; color:white;">
+                        <option>Sosyal Sorumluluk</option>
+                        <option>Konser Organizasyonu</option>
+                        <option>Doğum Günü Sürprizi</option>
+                        <option>Reklam / Billboard</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label class="input-label">DETAYLAR</label>
+                    <textarea class="form-input" id="message" rows="5" placeholder="Projeni detaylıca anlat..." required></textarea>
+                </div>
+                <button type="button" onclick="sendMail()" class="btn-submit">PROJE GÖNDER</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 MANIFEST ENTERTAINMENT. DESIGNED BY GOKHAN HALDAN.
+    </footer>
+
+    <script>
+        /* --- 1. PRELOADER & INIT --- */
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('load-bar');
+            const preloader = document.getElementById('preloader');
+            
+            bar.style.width = "100%";
+            setTimeout(() => {
+                preloader.style.opacity = "0";
+                setTimeout(() => { preloader.style.display = "none"; }, 500);
+            }, 800);
+        });
+
+        /* --- 2. SCROLL REVEAL ANIMATION --- */
+        window.addEventListener('scroll', reveal);
+        function reveal() {
+            var reveals = document.querySelectorAll('.reveal');
+            for(var i = 0; i < reveals.length; i++) {
+                var windowheight = window.innerHeight;
+                var revealtop = reveals[i].getBoundingClientRect().top;
+                var revealpoint = 150;
+                if(revealtop < windowheight - revealpoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+            
+            // Navbar
+            const nav = document.getElementById('navbar');
+            if(window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        }
+        reveal(); 
+
+        /* --- 3. NUMBER COUNTER --- */
+        const counters = document.querySelectorAll('.count');
+        const statsSection = document.querySelector('.stats-deck');
+        let hasCounted = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasCounted) {
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const duration = 2000; // ms
+                        const increment = target / (duration / 20);
+                        
+                        let current = 0;
+                        const updateCount = () => {
+                            current += increment;
+                            if(current < target) {
+                                counter.innerText = Math.ceil(current).toLocaleString('en-US');
+                                setTimeout(updateCount, 20);
+                            } else {
+                                counter.innerText = target.toLocaleString('en-US');
+                            }
+                        };
+                        updateCount();
+                    });
+                    hasCounted = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) observer.observe(statsSection);
+
+        /* --- 4. FILTER LOGIC --- */
+        function filterProjects(cat) {
+            const cards = document.querySelectorAll('.p-card');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if(cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'flex';
+                    setTimeout(() => { 
+                        card.style.opacity = '1'; 
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0'; 
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => { card.style.display = 'none'; }, 400);
+                }
+            });
+        }
+
+        /* --- 5. MAILTO LOGIC --- */
+        function sendMail() {
+            const name = document.getElementById('name').value;
+            const emailField = document.getElementById('email').value;
+            const cat = document.getElementById('category').value;
+            const msg = document.getElementById('message').value;
+            
+            if(name === '' || msg === '' || emailField === '') {
+                alert('Lütfen gerekli alanları doldurunuz.');
+                return;
+            }
+            
+            const recipient = "gokhan.haldan@gmail.com";
+            const subject = `MANIFEST PROJE: ${cat} (${name})`;
+            const body = `YENİ PROJE ÖNERİSİ\n\nGönderen: ${name}\nE-posta: ${emailField}\nKategori: ${cat}\n\nMesaj:\n${msg}`;
+            
+            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+    </script>
+</body>
+</html>
